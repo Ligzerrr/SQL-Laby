@@ -156,13 +156,14 @@ ALTER TABLE SalesLT.VendorPriceHistory ADD CONSTRAINT PriK_VPRHST PRIMARY KEY (P
 GO
 CREATE NONCLUSTERED INDEX NCLST_STEVENTS
 ON SalesLT.ShipmentTrackingEvents (SalesOrderID)
-INCLUDE (Status, Location, EventDate) --Nie uwzglednilem notes w include z uwagi na rozmiar.
+INCLUDE (Status, Location, EventDate) --Nie uwzglednilem notes w include z uwagi na rozmiar ale gdyby go uwzlegnid mozna by napewno zrobic pokrywajcy sie index dla selecta wyzej(include pozwala na przechowanie wraz z kolumnami z indexu (nie sa sortowane)).
 GO
 CREATE NONCLUSTERED INDEX NCLST_VENDOR
-ON SalesLT.Vendor (Name, VendorID)
+ON SalesLT.Vendor (Name, VendorID) --Name jest bardzo czesto wykorzystywane do WHERE + lepiej jak jest głownym kluczu dzieki posortowaniu itp 
 GO
 CREATE NONCLUSTERED INDEX NCLST_VPHISTORY
-ON SalesLT.VendorPriceHistory (VendorID, QuoteDate)
+ON SalesLT.VendorPriceHistory (VendorID)
+INCLUDE (QuoteDate) --Index jest lzejszy gdy date wrzuci sie do includa zamiast głownej czesci indexu, czesto uzywana jest data wiec pewnie pomoze dzieki pokrywaniu.
 GO
 CREATE NONCLUSTERED INDEX NCLST_PVENDOR
 ON SalesLT.ProductVendor (VendorID) 
@@ -174,4 +175,26 @@ GO
 CREATE NONCLUSTERED INDEX NCLST_VENDOR_ACC_NAMENUM 
 ON SalesLT.Vendor (Name, AccountNumber) --nie uwzgledniam activeflag ze wzgledu na to ze jest zero jedynkowa
 WHERE ActiveFlag = 1
+-- =============================================
+-- =============================================
+-- Zadanie 3
+CREATE NONCLUSTERED INDEX NLCST_ADR_STATE --indeks pokrywajacy, przyspieszy generowanie jakiegos raportu dla jakiegos klienta
+ON SalesLT.Address (StateProvince) --bede uzywal do szukania where w select 
+INCLUDE (City, AddressLine1); --reszta pokrycia
+GO
+SELECT City, AddressLine1 
+FROM SalesLT.Address
+WHERE StateProvince LIKE 'O%'
+GO
+
+CREATE NONCLUSTERED INDEX NCLST_PRDC_NOTAVAILABLE --indeks filtrowany dzieki ktoremu mozemy latwo znalezc liste produktow wycofanych np. gdy ktos potrzebuje znalezc archiwalne modele jakiegos roweru
+ON SalesLT.Product (Name, ProductNumber)
+WHERE SellEndDate IS NOT NULL
+GO
+
+SELECT ProductNumber, Name
+FROM SalesLT.Product
+WHERE SellEndDate IS NOT NULL AND NAME LIKE '%Road%'
+
+CREATE NONCLUSTERED INDEX NCLST_CADRS_
 -- =============================================
