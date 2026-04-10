@@ -195,6 +195,45 @@ GO
 SELECT ProductNumber, Name
 FROM SalesLT.Product
 WHERE SellEndDate IS NOT NULL AND NAME LIKE '%Road%'
+GO
 
-CREATE NONCLUSTERED INDEX NCLST_CADRS_
+CREATE NONCLUSTERED INDEX NCLST_CADRS_SHIPPING --Gdyby tabela miala o wiele wiecej rekordow, bardzo szybko mozna dostac informacje co do klientow ktorzy sa w procesie logistycznym (nie wiem jak inaczej to sformułowac)
+ON SalesLT.CustomerAddress (CustomerID, AddressID)
+WHERE AddressType = 'Shipping'
+GO
+SELECT CustomerID, AddressID
+FROM SalesLT.CustomerAddress
+WHERE AddressType = 'Shipping'
+GO
+-- =============================================
+-- Zadanie 4
+ALTER INDEX PriK_VPRHST ON SalesLT.VendorPriceHistory --musze uzyc alter index poniewaz stworzylem juz pk ktore tworzy klucz klastrowy, a za pomoca fillfactor okreslam ilosc wolnego miejsca na 75% poniewaz fillfactor = 25 oznajmi sql ze na stronach indeksu 25% ma byc zapelnione danymi)
+REBUILD WITH (FILLFACTOR = 25);
+GO
+-- =============================================
+-- =============================================
+-- Zadanie 5
+CREATE TABLE SalesLT.CustomerSatisfactionTracking ( --Tabela sledzaca satysfakcje klientow, dzieki niej 
+    TrackingID INT Primary Key Identity(1,1), --Od razu tworze primary key wraz z indexem klastrowy
+    CustomerID INT NOT NULL,
+    SalesOrderID INT NOT NULL,
+    Satisfaction INT CHECK (Satisfaction BETWEEN 1 AND 10),
+    HasReturned BIT NOT NULL Default 0,
+    Opinions NVARCHAR(600),
+
+    CONSTRAINT ForeignK_STSFCT_CID FOREIGN KEY (CustomerID) References SalesLT.Customer(CustomerID),
+    CONSTRAINT ForeignK_STSFCT_ORD FOREIGN KEY (SalesOrderID) References SalesLT.SalesOrderHeader(SalesOrderID)
+    )
+    GO
+
+    CREATE NONCLUSTERED INDEX NCLST_STSFCT_RETURNED --Dzieki temu mozemy szybko sprawdzic statystyki zwiazane z klientami ktorze powrocili
+    ON SalesLT.CustomerSatisfactionTracking (CustomerID)
+    WHERE HasReturned = 1
+    GO
+
+    CREATE NONCLUSTERED INDEX NCLST_STSFCT_RATING -- Index pokrywajacy dzieki ktoremu szybko mozemy zobaczyc wyniki dla zamowien (bez czytania calej tabeli)
+    ON SalesLT.CustomerSatisfactionTracking (SalesOrderID)
+    INCLUDE (SatisfactionLevel, Opinions)
+    GO
+
 -- =============================================
