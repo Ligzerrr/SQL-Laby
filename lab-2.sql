@@ -152,5 +152,9 @@ ALTER TABLE SalesLT.ProductVendor ADD CONSTRAINT PriK_PVNDR PRIMARY KEY (Product
 
 ALTER TABLE SalesLT.ProductBOM ADD CONSTRAINT PriK_PBOM PRIMARY KEY (ParentProductID, ComponentProductID) --Brakujace primary key BOMID nie jest NOT Nullem wiec nie moze byc PriK
 
-ALTER TABLE SalesLT.VendorPriceHistory
+ALTER TABLE SalesLT.VendorPriceHistory ADD CONSTRAINT PriK_VPRHST PRIMARY KEY (ProductID, VendorID, QuoteDate) -- Brakujace primary key
+
+ALTER TABLE SalesLT.ShipmentTrackingEvents ADD CONSTRAINT PriK_STREVN PRIMARY KEY (SalesOrderID) -- Brakujace primary key
+
+
 -- =============================================
