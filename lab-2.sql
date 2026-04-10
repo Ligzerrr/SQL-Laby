@@ -170,3 +170,8 @@ GO
 --Zastosowalem indeksy klastrowy (czyli tam gdzie sa primary key), zapewniaja unikalnosc oraz uporzadkowanie.
 --Zastosowałem indeksy nieklastrowe tam gdzie kolumny wykorzystywane są do SELECT, FK i JOIN (np przyspieszenie wyszukiwania po nazwie dostawcy poniewaz czesto to robimy)
 -- =============================================
+-- Zadanie 2
+CREATE NONCLUSTERED INDEX NCLST_VENDOR_ACC_NAMENUM 
+ON SalesLT.Vendor (Name, AccountNumber) --nie uwzgledniam activeflag ze wzgledu na to ze jest zero jedynkowa
+WHERE ActiveFlag = 1
+-- =============================================
