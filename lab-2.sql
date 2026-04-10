@@ -148,5 +148,9 @@ CROSS JOIN (
     SELECT 32, 'Adres Klienta', 'Delivered', 'Pozostawiono pod drzwiami'
 ) AS x
 
+ALTER TABLE SalesLT.ProductVendor ADD CONSTRAINT PriK_PVNDR PRIMARY KEY (ProductID, VendorID) -- Brakujace primary key = automatycznie stworzony indeks klastrowy
 
+ALTER TABLE SalesLT.ProductBOM ADD CONSTRAINT PriK_PBOM PRIMARY KEY (ParentProductID, ComponentProductID) --Brakujace primary key BOMID nie jest NOT Nullem wiec nie moze byc PriK
+
+ALTER TABLE SalesLT.VendorPriceHistory
 -- =============================================
