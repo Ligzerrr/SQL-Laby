@@ -1,4 +1,4 @@
--- =============================================
+ï»¿-- =============================================
 -- Piotr
 -- Popiel
 -- 240164
@@ -61,7 +61,7 @@ IF OBJECT_ID('SalesLT.ShipmentTrackingEvents', 'U') IS NOT NULL
 GO
 CREATE TABLE SalesLT.ShipmentTrackingEvents (
     EventID BIGINT,
-    SalesOrderID INT NOT NULL, -- FK do istniej?cych zamówie?
+    SalesOrderID INT NOT NULL, -- FK do istniej?cych zamÃ³wie?
     EventDate DATETIME NOT NULL,
     Location VARCHAR(100),
     Status VARCHAR(50),
@@ -88,7 +88,7 @@ SELECT
     (ABS(CHECKSUM(NEWID())) % 15) + 1 -- Czas dostawy 1-15 dni
 FROM SalesLT.Product p
 CROSS APPLY (
-    -- Wybierz 10 losowych dostawców dla ka?dego produktu
+    -- Wybierz 10 losowych dostawcÃ³w dla ka?dego produktu
     SELECT TOP 15 VendorID 
     FROM SalesLT.Vendor 
     ORDER BY NEWID()
@@ -96,7 +96,7 @@ CROSS APPLY (
 GO
 
 
--- Generowanie milionów rekordów
+-- Generowanie milionÃ³w rekordÃ³w
 INSERT INTO SalesLT.VendorPriceHistory (VendorID, ProductID, Price, QuoteDate)
 SELECT 
     pv.VendorID,
@@ -129,7 +129,7 @@ GO
 INSERT INTO SalesLT.ShipmentTrackingEvents (SalesOrderID, EventDate, Location, Status, Notes)
 SELECT 
     soh.SalesOrderID,
-    -- Data zdarzenia przesuni?ta wzgl?dem daty zamówienia
+    -- Data zdarzenia przesuni?ta wzgl?dem daty zamÃ³wienia
     DATEADD(HOUR, x.HoursOffset, soh.OrderDate),
     -- Losowa lokalizacja z listy
     x.Location,
@@ -139,7 +139,7 @@ SELECT
     x.Note
 FROM SalesLT.SalesOrderHeader soh
 CROSS JOIN (
-    -- Symulujemy 5 etapów podró?y dla KA?DEGO zamówienia
+    -- Symulujemy 5 etapÃ³w podrÃ³?y dla KA?DEGO zamÃ³wienia
     SELECT 2 AS HoursOffset, 'Magazyn Centralny' AS Location, 'Picked' AS Status, 'Skompletowano' AS Note UNION ALL
     SELECT 6, 'Magazyn Centralny', 'Shipped', 'Wydano kurierowi' UNION ALL
     SELECT 18, 'Sortownia Regionalna Wawa', 'Arrived', 'Skanowanie w sortowni' UNION ALL
@@ -149,12 +149,24 @@ CROSS JOIN (
 ) AS x
 
 ALTER TABLE SalesLT.ProductVendor ADD CONSTRAINT PriK_PVNDR PRIMARY KEY (ProductID, VendorID) -- Brakujace primary key = automatycznie stworzony indeks klastrowy
-
+GO
 ALTER TABLE SalesLT.ProductBOM ADD CONSTRAINT PriK_PBOM PRIMARY KEY (ParentProductID, ComponentProductID) --Brakujace primary key BOMID nie jest NOT Nullem wiec nie moze byc PriK
-
+GO
 ALTER TABLE SalesLT.VendorPriceHistory ADD CONSTRAINT PriK_VPRHST PRIMARY KEY (ProductID, VendorID, QuoteDate) -- Brakujace primary key
-
-ALTER TABLE SalesLT.ShipmentTrackingEvents ADD CONSTRAINT PriK_STREVN PRIMARY KEY (SalesOrderID) -- Brakujace primary key
-
-
+GO
+CREATE NONCLUSTERED INDEX NCLST_STEVENTS
+ON SalesLT.ShipmentTrackingEvents (SalesOrderID)
+INCLUDE (Status, Location, EventDate) --Nie uwzglednilem notes w include z uwagi na rozmiar.
+GO
+CREATE NONCLUSTERED INDEX NCLST_VENDOR
+ON SalesLT.Vendor (Name, VendorID)
+GO
+CREATE NONCLUSTERED INDEX NCLST_VPHISTORY
+ON SalesLT.VendorPriceHistory (VendorID, QuoteDate)
+GO
+CREATE NONCLUSTERED INDEX NCLST_PVENDOR
+ON SalesLT.ProductVendor (VendorID) 
+GO
+--Zastosowalem indeksy klastrowy (czyli tam gdzie sa primary key), zapewniaja unikalnosc oraz uporzadkowanie.
+--ZastosowaÅ‚em indeksy nieklastrowe tam gdzie kolumny wykorzystywane sÄ… do SELECT, FK i JOIN (np przyspieszenie wyszukiwania po nazwie dostawcy poniewaz czesto to robimy)
 -- =============================================
