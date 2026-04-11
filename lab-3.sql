@@ -72,14 +72,19 @@
     INCLUDE (Name, ProductCategoryID, StandardCost)
     GO
     CREATE NONCLUSTERED INDEX NCLST_SOD_UNIT
-    ON SalesLT.SalesOrderDetail (UnitPrice, ProductID) --Probowalem zmienic index scana na index seeka za pomoca pokrywajacego indeksu ale niestety nie zmienił się na seek :( Nie wiem co w tej sytuacji mogło zajść ale zostawiam to w kodzie. Jakby udało sie to zniknalby hash match wraz ze index scanem.
-    INCLUDE (LineTotal, OrderQty)
+    ON SalesLT.SalesOrderDetail (ProductID) --
+    INCLUDE (UnitPrice, LineTotal, OrderQty)
     GO
-   
+    DROP INDEX NCLST_SOD_UNIT ON SalesLT.SalesOrderDetail
+    GO
+    UPDATE STATISTICS SalesLT.SalesOrderDetail
+    GO
     
     
 -- =============================================
 -- =============================================
 -- Zadanie 4
-
+UPDATE STATISTICS SalesLT.SalesOrderDetail
+GO
+--Najwieksza tabela w bazie danych (przynajmniej zakładam, że tak powinno być), tutaj pojawia sie duzo nowych indeksow, czasami trzeba je usunac i optymalizator może być przez to w błędzie, tutaj też często uzywany moze byc INSERT dlatego warto ręcznie aktualizować statystyki.
 -- =============================================
