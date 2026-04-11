@@ -82,6 +82,7 @@
     
     
 -- =============================================
+--ZADANIE 3 SIE NIE UDAŁO NIE MOGĘ POŁĄCZYĆ SIĘ Z PROFILEREM! (PROBOWALEM WSZYSTKIEGO)
 -- =============================================
 -- Zadanie 4
 UPDATE STATISTICS SalesLT.SalesOrderDetail
