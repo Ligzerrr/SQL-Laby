@@ -148,9 +148,10 @@ CROSS JOIN (
     SELECT 32, 'Adres Klienta', 'Delivered', 'Pozostawiono pod drzwiami'
 ) AS x
 
-ALTER TABLE SalesLT.ProductVendor ADD CONSTRAINT PriK_PVNDR PRIMARY KEY (ProductID, VendorID) -- Brakujace primary key = automatycznie stworzony indeks klastrowy
+ALTER TABLE SalesLT.ProductVendor ADD CONSTRAINT PriK_PVNDR PRIMARY KEY (ProductID, VendorID) -- Brakujace primary key = automatycznie stworzony indeks klastrowy --Tworzac indeksy klastrowe pozbywam sie stert, zachodzi logiczny porzadek wynikajacy z wartosci klucza, dzieki temu gdy uzyjemy selecta bez order by otrzymujemy posortowane informacje, nie wiem dokladnie jak ma wygladac Bill Of Materials w tym przypadku (chyba o to chodzi z BOM) ale jesli nie sa to dane tymczasowe to indeksy klastrowe tutaj pomagaja bardziej niz sterta.
 GO
-ALTER TABLE SalesLT.ProductBOM ADD CONSTRAINT PriK_PBOM PRIMARY KEY (ParentProductID, ComponentProductID) --Brakujace primary key BOMID nie jest NOT Nullem wiec nie moze byc PriK
+ALTER TABLE SalesLT.ProductBOM ADD CONSTRAINT PriK_PBOM PRIMARY KEY (ParentProductID, ComponentProductID) --Tutaj jedynie nie wiem co zrobic, unikalnosc spowoduje ze np jesli bedzie jakas czesc instrukcji gdzie np. lampka od roweru bedzie na x-owym stepie oraz y-owym stepiem to nie bedzie moglo to zostac wpisane w tabele, ale bez tego 
+--technicznie moglbym poprostu trzymac kolumny jako nieklastrowe i zostawic to jako sterte, ale klastry pomagaja przy wyszukiwaniu. NIE WIEM! Zrobilem to tak mam nadzieje ze blisko max punktow otrzymam za ten lab, ale dalej niestety mam z tym problem :(
 GO
 ALTER TABLE SalesLT.VendorPriceHistory ADD CONSTRAINT PriK_VPRHST PRIMARY KEY (ProductID, VendorID, QuoteDate) -- Brakujace primary key
 GO
@@ -233,7 +234,7 @@ CREATE TABLE SalesLT.CustomerSatisfactionTracking ( --Tabela sledzaca satysfakcj
 
     CREATE NONCLUSTERED INDEX NCLST_STSFCT_RATING -- Index pokrywajacy dzieki ktoremu szybko mozemy zobaczyc wyniki dla zamowien (bez czytania calej tabeli)
     ON SalesLT.CustomerSatisfactionTracking (SalesOrderID)
-    INCLUDE (SatisfactionLevel, Opinions)
+    INCLUDE (Satisfaction, Opinions)
     GO
 
 -- =============================================
