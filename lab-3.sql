@@ -68,14 +68,16 @@
         TotalRevenue DESC;
 
     CREATE NONCLUSTERED INDEX NCLST_PRDCT_NUMBER
-    ON SalesLT.Product (ProductNumber)
-    INCLUDE 
+    ON SalesLT.Product (ProductNumber) --Pokrywający indeks tutaj zamienia index scan na index seek.
+    INCLUDE (Name, ProductCategoryID, StandardCost)
+    GO
+    CREATE NONCLUSTERED INDEX NCLST_SOD_UNIT
+    ON SalesLT.SalesOrderDetail (UnitPrice, ProductID) --Probowalem zmienic index scana na index seeka za pomoca pokrywajacego indeksu ale niestety nie zmienił się na seek :( Nie wiem co w tej sytuacji mogło zajść ale zostawiam to w kodzie. Jakby udało sie to zniknalby hash match wraz ze index scanem.
+    INCLUDE (LineTotal, OrderQty)
+    GO
+   
     
     
-    /*  CREATE NONCLUSTERED INDEX NCLST_PRDCTCTGR_ID
-    ON SalesLT.ProductCategory (ProductCategoryID)
-    GO*/
-
 -- =============================================
 -- =============================================
 -- Zadanie 4
