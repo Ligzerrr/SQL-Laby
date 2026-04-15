@@ -14,7 +14,7 @@ SET @Litera = 'P';
 SELECT CustomerID, FirstName, LastName
 FROM SalesLT.Customer
 WHERE LastName Like @Litera + '%' AND CustomerID % 10 = @Cyfra;
-
+GO
 -- =============================================
 -- =============================================
 -- Zadanie 2
@@ -26,6 +26,7 @@ INSERT INTO @Produkty(ProductID, Name, ListPrice)
 SELECT ProductID, Name, ListPrice From SalesLT.Product WHERE NAME LIKE '%P%'
 SELECT *
 FROM @Produkty
+GO
 -- =============================================
 -- =============================================
 -- Zadanie 3
@@ -35,13 +36,26 @@ FROM SalesLT.Customer clt
 JOIN SalesLT.CustomerAddress cadrs on clt.CustomerID = cadrs.AddressID
 JOIN SalesLT.Address adrs on cadrs.AddressID = adrs.AddressID
 WHERE adrs.City LIKE 'P%'
-
+GO
 SELECT *
 FROM #KlienciMiasta
-
+GO
 DROP TABLE #KlienciMiasta
+GO
 -- =============================================
 -- =============================================
 -- Zadanie 4
-
+CREATE SCHEMA Student_4 AUTHORIZATION student
+GO
+CREATE TABLE Student_4.ProduktyP (
+	ProductID int,
+	Name nvarchar(100),
+	Category nvarchar(100),
+	ListPrice money
+	)
+GO
+INSERT INTO Student_4.ProduktyP(ProductID, Name, Category, ListPrice)
+SELECT ProductID, Name, Category, ListPrice
+FROM SalesLT.Products
+GO
 -- =============================================
