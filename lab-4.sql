@@ -29,9 +29,15 @@ FROM @Produkty
 -- =============================================
 -- =============================================
 -- Zadanie 3
-SELECT cadrs.CustomerID, cadrs.FirstName, cadrs.LastName, adrs.City
+SELECT clt.CustomerID, clt.FirstName, clt.LastName, adrs.City
 INTO #KlienciMiasta
-FROM SalesLT.CustomerAddress cadrs
+FROM SalesLT.Customer clt
+JOIN SalesLT.CustomerAddress cadrs on clt.CustomerID = cadrs.AddressID
 JOIN SalesLT.Address adrs on cadrs.AddressID = adrs.AddressID
-WHERE adrs.City = 
+WHERE adrs.City LIKE 'X%'
+
+SELECT *
+FROM #KlienciMiasta
+
+DROP TABLE #KlienciMiasta
 -- =============================================
