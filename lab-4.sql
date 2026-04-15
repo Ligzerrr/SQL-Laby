@@ -33,7 +33,7 @@ GO
 SELECT clt.CustomerID, clt.FirstName, clt.LastName, adrs.City
 INTO #KlienciMiasta
 FROM SalesLT.Customer clt
-JOIN SalesLT.CustomerAddress cadrs on clt.CustomerID = cadrs.AddressID --Tutaj wymagane jest połączenie tabel CustomerAddress oraz Address aby dostać wszystkie potrzebne kolumny
+JOIN SalesLT.CustomerAddress cadrs on clt.CustomerID = cadrs.CustomerID --Tutaj wymagane jest połączenie tabel CustomerAddress oraz Address aby dostać wszystkie potrzebne kolumny
 JOIN SalesLT.Address adrs on cadrs.AddressID = adrs.AddressID
 WHERE adrs.City LIKE 'P%'
 GO
@@ -56,7 +56,7 @@ CREATE TABLE Student_4.ProduktyP (
 GO
 INSERT INTO Student_4.ProduktyP(ProductID, Name, Category, ListPrice)
 SELECT ProductID, Name, Category, ListPrice
-FROM SalesLT.Products
+FROM SalesLT.Product
 GO
 -- =============================================
 -- =============================================
