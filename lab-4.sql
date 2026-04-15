@@ -68,5 +68,7 @@ DECLARE @Podsumowanie TABLE (
 INSERT INTO @Podsumowanie(Category, SredniaCena)
 SELECT Category, AVG(ListPrice) as SredniaCena
 FROM SalesLT.ProductCategory
-WHERE 
+WHERE ProductCategoryID % 10 = 4
+GO
+
 -- =============================================
