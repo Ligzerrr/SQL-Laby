@@ -66,9 +66,12 @@ DECLARE @Podsumowanie TABLE (
 	SredniaCena money
 	)
 INSERT INTO @Podsumowanie(Category, SredniaCena)
-SELECT Category, AVG(ListPrice) as SredniaCena
-FROM SalesLT.ProductCategory
-WHERE ProductCategoryID % 10 = 4
+SELECT prdctg.Name, AVG(prd.ListPrice) as SredniaCena
+FROM SalesLT.Product prd
+JOIN SalesLT.ProductCategory prdctg ON prd.ProductCategoryID = prdctg.ProductCategoryID
+WHERE prdctg.ProductCategoryID % 10 = 4
+GROUP BY prdctg.Name
+SELECT *
+FROM @Podsumowanie
 GO
-
 -- =============================================
