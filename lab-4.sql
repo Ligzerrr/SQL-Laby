@@ -61,5 +61,12 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 5
-
+DECLARE @Podsumowanie TABLE (
+	Category nvarchar(100),
+	SredniaCena money
+	)
+INSERT INTO @Podsumowanie(Category, SredniaCena)
+SELECT Category, AVG(ListPrice) as SredniaCena
+FROM SalesLT.ProductCategory
+WHERE 
 -- =============================================
