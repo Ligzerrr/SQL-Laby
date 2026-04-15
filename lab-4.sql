@@ -1,4 +1,4 @@
--- =============================================
+﻿-- =============================================
 -- Piotr
 -- Popiel
 -- 240164
@@ -33,7 +33,7 @@ GO
 SELECT clt.CustomerID, clt.FirstName, clt.LastName, adrs.City
 INTO #KlienciMiasta
 FROM SalesLT.Customer clt
-JOIN SalesLT.CustomerAddress cadrs on clt.CustomerID = cadrs.AddressID
+JOIN SalesLT.CustomerAddress cadrs on clt.CustomerID = cadrs.AddressID --Tutaj wymagane jest połączenie tabel CustomerAddress oraz Address aby dostać wszystkie potrzebne kolumny
 JOIN SalesLT.Address adrs on cadrs.AddressID = adrs.AddressID
 WHERE adrs.City LIKE 'P%'
 GO
@@ -68,10 +68,19 @@ DECLARE @Podsumowanie TABLE (
 INSERT INTO @Podsumowanie(Category, SredniaCena)
 SELECT prdctg.Name, AVG(prd.ListPrice) as SredniaCena
 FROM SalesLT.Product prd
-JOIN SalesLT.ProductCategory prdctg ON prd.ProductCategoryID = prdctg.ProductCategoryID
+JOIN SalesLT.ProductCategory prdctg ON prd.ProductCategoryID = prdctg.ProductCategoryID --Trzeba połączyć tabele ProductCategory z Product
 WHERE prdctg.ProductCategoryID % 10 = 4
 GROUP BY prdctg.Name
 SELECT *
 FROM @Podsumowanie
 GO
+-- =============================================
+-- =============================================
+-- Zadanie 6
+CREATE SCHEMA [240164] AUTHORIZATION student --Nie miałem zbytnio o czym pisać w tym labie, tutaj musiałem dać nawiasy kwadratowe, ponieważ inaczej 240164 traktowane jest jako liczba (int)
+GO
+
+
+
+
 -- =============================================
