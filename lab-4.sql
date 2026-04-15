@@ -77,10 +77,8 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 6
-CREATE SCHEMA [240164] AUTHORIZATION student --Nie miałem zbytnio o czym pisać w tym labie, tutaj musiałem dać nawiasy kwadratowe, ponieważ inaczej 240164 traktowane jest jako liczba (int)
+CREATE SCHEMA [240164] AUTHORIZATION student --Nie miałem zbytnio o czym pisać w tym labie, tutaj musiałem dać nawiasy kwadratowe, ponieważ w innym przypadku 240164 traktowane jest jako liczba (int)
 GO
-
-
-
-
+ALTER SCHEMA [240164] TRANSFER dbo.Customer --Tutaj należy użyc domyślnego schematu chyba tak to się nazywa (skrot od database owner)
+ALTER SCHEMA [240164] TRANSFER dbo.CustomerAddress --Nie da się przenieść za pomocą jednej instrukcji, chyba, że o tym nie wiem lub jakoś dynamicznie, dwóch tabel jednocześnie.
 -- =============================================
