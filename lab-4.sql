@@ -34,7 +34,7 @@ INTO #KlienciMiasta
 FROM SalesLT.Customer clt
 JOIN SalesLT.CustomerAddress cadrs on clt.CustomerID = cadrs.AddressID
 JOIN SalesLT.Address adrs on cadrs.AddressID = adrs.AddressID
-WHERE adrs.City LIKE 'X%'
+WHERE adrs.City LIKE 'P%'
 
 SELECT *
 FROM #KlienciMiasta
