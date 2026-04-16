@@ -91,17 +91,16 @@ CREATE XML SCHEMA COLLECTION AttributeSchema AS N'
 	  <xs:element name="Weight" type="xs:decimal"/>
 	  <xs:element name="Size" type="xs:string"/>
 	  <xs:element name="COF" type="xs:string"/>
+	  <xs:element name="Material" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>';
 
 CREATE TABLE [SalesLT].[ProductAttribute] (
-	ProductID int,
+	ProductID int PRIMARY KEY NOT NULL, --Moglbym zrobic attributeid ale w SalesLT.Product ProductID tez jest PK wiec stwierdzam, że po co, tam też są jakieś cechy wpisane, więc zakładam, że nagle ktoś nie będzie miał potrzeby dodanie nowych cech do istniejącego produktu.
 	Attributes xml(AttributeSchema) NULL,
 	CONSTRAINT FORK_PRDTATT_PRDT FOREIGN KEY (ProductID) REFERENCES [SalesLT].[Product](ProductID)
 	)
-INSERT INTO [SalesLT].[ProductAttribute]
-VALUES (1, '
 
 
 	
