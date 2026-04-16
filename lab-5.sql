@@ -155,18 +155,19 @@ DECLARE @jsonAddress nvarchar(max)
 SET @jsonAddress = N'{
 	"info":{
 		"type":1,
-		"address:"{
+		"address":{
 			"city":"Warsaw",
 			"voivodeship":"Masovian",
 			"country":"Poland",
 			"zip-code":"00-002"
-		},
+		}
 	},
 	"type":"Basic"
 }'
-SELECT @jsonAddress 
-SET @jsonAddress = JSON_MODIFY(@jsonAdress, '$info.address.zip-code', '240164')
+SELECT @jsonAddress
 
-SELECT @jsonAddress 
+SET @jsonAddress = JSON_MODIFY(@jsonAddress, '$.info.address."zip-code"', '240164')
+
+SELECT @jsonAddress as [240164JSON]
 
 -- =============================================
