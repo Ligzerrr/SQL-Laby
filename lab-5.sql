@@ -71,12 +71,14 @@ SELECT *
 FROM [240164].[Customer]
 FOR SYSTEM_TIME ALL
 WHERE CustomerID = 5
+GO
 -- =============================================
 -- =============================================
 -- Zadanie 5
 SELECT *
 FROM [240164].[Customer]
 FOR SYSTEM_TIME AS OF '2026-04-16 10:00:00.000000'
+GO
 -- =============================================
 -- =============================================
 -- Zadanie 6
@@ -87,7 +89,7 @@ CREATE XML SCHEMA COLLECTION AttributeSchema AS N'
     <xs:sequence>
       <xs:element name="Color" type="xs:string"/>
       <xs:element name="ListPrice" type="xs:decimal"/>
-	  <xs:element name="StandardPrice" type="xs:decimal"/>
+	  <xs:element name="StandardCost" type="xs:decimal"/>
 	  <xs:element name="Weight" type="xs:decimal"/>
 	  <xs:element name="Size" type="xs:string"/>
 	  <xs:element name="COF" type="xs:string"/>
@@ -95,15 +97,27 @@ CREATE XML SCHEMA COLLECTION AttributeSchema AS N'
     </xs:sequence>
   </xs:complexType>
 </xs:schema>';
-
+GO
 CREATE TABLE [SalesLT].[ProductAttribute] (
 	ProductID int PRIMARY KEY NOT NULL, --Moglbym zrobic attributeid ale w SalesLT.Product ProductID tez jest PK wiec stwierdzam, że po co, tam też są jakieś cechy wpisane, więc zakładam, że nagle ktoś nie będzie miał potrzeby dodanie nowych cech do istniejącego produktu.
 	Attributes xml(AttributeSchema) NULL,
 	CONSTRAINT FORK_PRDTATT_PRDT FOREIGN KEY (ProductID) REFERENCES [SalesLT].[Product](ProductID)
 	)
+GO
 -- =============================================
 -- =============================================
 -- Zadanie 7
 INSERT INTO [SalesLT].[ProductAttribute](ProductID, Attributes)
-VALUES (680, '<Product><Color>Black</Color><ListPrice>
+VALUES (680, '<Product><Color>Black</Color><ListPrice>1431.5000</ListPrice><StandardCost>1059.3100</StandardCost><Weight>1016.04</Weight><Size>58</Size><COF>China</COF><Material>Steel</Material>'),
+(706, '<Product><Color>Red</Color><ListPrice>1431.5000</ListPrice><StandardCost>1059.3100</StandardCost><Weight>1016.04</Weight><Size>58</Size><COF>China</COF><Material>Steel</Material>'), 
+(707,'<Product><Color>Red</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>402</Weight><Size>OS</Size><COF>Brazil</COF><Material>Plastic</Material>'),
+(708,'<Product><Color>Black</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>402</Weight><Size>OS</Size><COF>Brazil</COF><Material>Plastic</Material>'),
+(709,'<Product><Color>White</Color><ListPrice>9.5000</ListPrice><StandardCost>3.3963</StandardCost><Weight>8005</Weight><Size>M</Size><COF>Vietnam</COF><Material>Stainless Steel</Material>'),
+(710,'<Product><Color>White</Color><ListPrice>9.5000</ListPrice><StandardCost>3.3963</StandardCost><Weight>8005</Weight><Size>L</Size><COF>Vietnam</COF><Material>Stainless Steel</Material>'),
+(711,'<Product><Color>Blue</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>420</Weight><Size>XXL</Size><COF>Mongolia</COF><Material>Plastic</Material>')
+GO
+-- =============================================
+-- =============================================
+-- Zadanie 8
+
 -- =============================================
