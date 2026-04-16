@@ -119,5 +119,25 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 8
+UPDATE [SalesLT].[ProductAttribute]
+SET Attributes.modify ('replace value of (/Product/Color)[1] with "Pearlescent"') --Nie wiem jak inaczej moglbym to zrobic, pewnie przez kombinowanie z warunkowymi modify() ale byłoby to bardzo żmudne, mam sporo rekordów, a zarazem dużo pól tekstowych, więc troche lepiej będzie mi to nadpisać zamiast używać .modify() ale dla pierwszego wiersza zrobiłem to normalnie.
+WHERE ProductID = 680
+UPDATE [SalesLT].[ProductAttribute]
+SET Attributes.modify ('replace value of (/Product/Size)[1] with "PlusXL"')
+WHERE ProductID = 680
+UPDATE [SalesLT].[ProductAttribute]
+SET Attributes.modify ('replace value of (/Product/COF)[1] with "Poland"')
+WHERE ProductID = 680
+UPDATE [SalesLT].[ProductAttribute]
+SET Attributes.modify ('replace value of (/Product/Material)[1] with "Patina"')
+WHERE ProductID = 680
+UPDATE [SalesLT].[ProductAttribute]
+SET Attributes = '<Product><Color>Plum</Color><ListPrice>1431.5000</ListPrice><StandardCost>1059.3100</StandardCost><Weight>1016.04</Weight><Size>PlusL</Size><COF>Pakistan</COF><Material>Plastic</Material></Product>'
+WHERE ProductID = 706
+UPDATE [SalesLT].[ProductAttribute]
+SET Attributes = '<Product><Color>Pink</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>402</Weight><Size>PlusXXL</Size><COF>Pakistan</COF><Material>Plastic</Material></Product>'
+'<Product><Color>Plague Black</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>402</Weight><Size>PlusXXXL</Size><COF>Peru</COF><Material>Patina</Material></Product>'),
+'<Product><Color>White</Color><ListPrice>9.5000</ListPrice><StandardCost>3.3963</StandardCost><Weight>8005</Weight><Size>M</Size><COF>Vietnam</COF><Material>Stainless Steel</Material></Product>'),
+'<Product><Color>White</Color><ListPrice>9.5000</ListPrice><StandardCost>3.3963</StandardCost><Weight>8005</Weight><Size>L</Size><COF>Vietnam</COF><Material>Stainless Steel</Material></Product>'),
+'<Product><Color>Blue</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>420</Weight><Size>XXL</Size><COF>Mongolia</COF><Material>Plastic</Material></Product>')
 
--- =============================================
