@@ -136,8 +136,37 @@ SET Attributes = '<Product><Color>Plum</Color><ListPrice>1431.5000</ListPrice><S
 WHERE ProductID = 706
 UPDATE [SalesLT].[ProductAttribute]
 SET Attributes = '<Product><Color>Pink</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>402</Weight><Size>PlusXXL</Size><COF>Pakistan</COF><Material>Plastic</Material></Product>'
-'<Product><Color>Plague Black</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>402</Weight><Size>PlusXXXL</Size><COF>Peru</COF><Material>Patina</Material></Product>'),
-'<Product><Color>White</Color><ListPrice>9.5000</ListPrice><StandardCost>3.3963</StandardCost><Weight>8005</Weight><Size>M</Size><COF>Vietnam</COF><Material>Stainless Steel</Material></Product>'),
-'<Product><Color>White</Color><ListPrice>9.5000</ListPrice><StandardCost>3.3963</StandardCost><Weight>8005</Weight><Size>L</Size><COF>Vietnam</COF><Material>Stainless Steel</Material></Product>'),
-'<Product><Color>Blue</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>420</Weight><Size>XXL</Size><COF>Mongolia</COF><Material>Plastic</Material></Product>')
+WHERE ProductID = 707
+UPDATE [SalesLT].[ProductAttribute]
+SET Attributes = '<Product><Color>Plague Black</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>402</Weight><Size>PlusXXXL</Size><COF>Peru</COF><Material>Patina</Material></Product>'
+WHERE ProductID = 708
+UPDATE [SalesLT].[ProductAttribute]
+SET Attributes = '<Product><Color>Plaque White</Color><ListPrice>9.5000</ListPrice><StandardCost>3.3963</StandardCost><Weight>8005</Weight><Size>PlusXXXL</Size><COF>Peru</COF><Material>Plastic mesh</Material></Product>'
+WHERE ProductID = 709
+UPDATE [SalesLT].[ProductAttribute]
+SET Attributes = '<Product><Color>Polish Red</Color><ListPrice>9.5000</ListPrice><StandardCost>3.3963</StandardCost><Weight>8005</Weight><Size>PlusXXXXXXL</Size><COF>Panama</COF><Material>PBT</Material></Product>'
+WHERE ProductID = 710
+UPDATE [SalesLT].[ProductAttribute]
+SET Attributes = '<Product><Color>Plank Brown</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>420</Weight><Size>PLUSXXS</Size><COF>Paraguay</COF><Material>Phosphorous</Material></Product>'
+WHERE ProductID = 711
+-- =============================================
+-- Zadanie 9
+DECLARE @jsonAddress nvarchar(max)
+SET @jsonAddress = N'{
+	"info":{
+		"type":1,
+		"address:"{
+			"city":"Warsaw",
+			"voivodeship":"Masovian",
+			"country":"Poland",
+			"zip-code":"00-002"
+		},
+	},
+	"type":"Basic"
+}'
+SELECT @jsonAddress 
+SET @jsonAddress = JSON_MODIFY(@jsonAdress, '$info.address.zip-code', '240164')
 
+SELECT @jsonAddress 
+
+-- =============================================
