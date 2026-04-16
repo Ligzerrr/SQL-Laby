@@ -101,7 +101,9 @@ CREATE TABLE [SalesLT].[ProductAttribute] (
 	Attributes xml(AttributeSchema) NULL,
 	CONSTRAINT FORK_PRDTATT_PRDT FOREIGN KEY (ProductID) REFERENCES [SalesLT].[Product](ProductID)
 	)
-
-
-	
+-- =============================================
+-- =============================================
+-- Zadanie 7
+INSERT INTO [SalesLT].[ProductAttribute]
+VALUES 
 -- =============================================
