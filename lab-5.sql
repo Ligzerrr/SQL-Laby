@@ -108,13 +108,13 @@ GO
 -- =============================================
 -- Zadanie 7
 INSERT INTO [SalesLT].[ProductAttribute](ProductID, Attributes)
-VALUES (680, '<Product><Color>Black</Color><ListPrice>1431.5000</ListPrice><StandardCost>1059.3100</StandardCost><Weight>1016.04</Weight><Size>58</Size><COF>China</COF><Material>Steel</Material>'),
-(706, '<Product><Color>Red</Color><ListPrice>1431.5000</ListPrice><StandardCost>1059.3100</StandardCost><Weight>1016.04</Weight><Size>58</Size><COF>China</COF><Material>Steel</Material>'), 
-(707,'<Product><Color>Red</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>402</Weight><Size>OS</Size><COF>Brazil</COF><Material>Plastic</Material>'),
-(708,'<Product><Color>Black</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>402</Weight><Size>OS</Size><COF>Brazil</COF><Material>Plastic</Material>'),
-(709,'<Product><Color>White</Color><ListPrice>9.5000</ListPrice><StandardCost>3.3963</StandardCost><Weight>8005</Weight><Size>M</Size><COF>Vietnam</COF><Material>Stainless Steel</Material>'),
-(710,'<Product><Color>White</Color><ListPrice>9.5000</ListPrice><StandardCost>3.3963</StandardCost><Weight>8005</Weight><Size>L</Size><COF>Vietnam</COF><Material>Stainless Steel</Material>'),
-(711,'<Product><Color>Blue</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>420</Weight><Size>XXL</Size><COF>Mongolia</COF><Material>Plastic</Material>')
+VALUES (680, '<Product><Color>Black</Color><ListPrice>1431.5000</ListPrice><StandardCost>1059.3100</StandardCost><Weight>1016.04</Weight><Size>58</Size><COF>China</COF><Material>Steel</Material></Product>'),
+(706, '<Product><Color>Red</Color><ListPrice>1431.5000</ListPrice><StandardCost>1059.3100</StandardCost><Weight>1016.04</Weight><Size>58</Size><COF>China</COF><Material>Steel</Material></Product>'), 
+(707,'<Product><Color>Red</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>402</Weight><Size>OS</Size><COF>Brazil</COF><Material>Plastic</Material></Product>'),
+(708,'<Product><Color>Black</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>402</Weight><Size>OS</Size><COF>Brazil</COF><Material>Plastic</Material></Product>'),
+(709,'<Product><Color>White</Color><ListPrice>9.5000</ListPrice><StandardCost>3.3963</StandardCost><Weight>8005</Weight><Size>M</Size><COF>Vietnam</COF><Material>Stainless Steel</Material></Product>'),
+(710,'<Product><Color>White</Color><ListPrice>9.5000</ListPrice><StandardCost>3.3963</StandardCost><Weight>8005</Weight><Size>L</Size><COF>Vietnam</COF><Material>Stainless Steel</Material></Product>'),
+(711,'<Product><Color>Blue</Color><ListPrice>34.9900</ListPrice><StandardCost>13.0863</StandardCost><Weight>420</Weight><Size>XXL</Size><COF>Mongolia</COF><Material>Plastic</Material></Product>')
 GO
 -- =============================================
 -- =============================================
