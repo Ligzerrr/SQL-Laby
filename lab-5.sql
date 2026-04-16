@@ -90,7 +90,7 @@ CREATE XML SCHEMA COLLECTION AttributeSchema AS N'
 	  <xs:element name="StandardPrice" type="xs:decimal"/>
 	  <xs:element name="Weight" type="xs:decimal"/>
 	  <xs:element name="Size" type="xs:string"/>
-	  <xs:
+	  <xs:element name="COF" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>';
