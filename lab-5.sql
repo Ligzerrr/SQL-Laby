@@ -35,6 +35,12 @@ UPDATE [240164].[Customer]
 SET LastName = 'Bedroque', Title = 'Ms.'
 WHERE CustomerID = 5
 UPDATE [240164].[Customer]
+SET Title = 'Mr.'
+WHERE CustomerID = 5
+UPDATE [240164].[Customer]
+SET Title = 'Ms.'
+WHERE CustomerID = 5
+UPDATE [240164].[Customer]
 SET MiddleName = 'L.'
 WHERE CustomerID = 7
 UPDATE [240164].[Customer]
@@ -54,9 +60,49 @@ SET LastName = 'Mongolian'
 WHERE CustomerID = 34
 GO
 
-INSERT INTO [240164].[Customer](Title, FirstName, LastName, CompanyName, Phone, PasswordHash, PasswordSalt)
+INSERT INTO [240164].[Customer](Title, FirstName, LastName, CompanyName, Phone, PasswordHash, PasswordSalt) --czy modifieddate tutaj też dodać? Niby widać to [zmiany] po samym StartSys i EndSys 
 VALUES ('Mr.', 'Don', 'Patricio', 'Biking-Hiking 3000', '581-581-6901', '',''), ('Ms.', 'Shyanne', 'Pralic', 'Boy-Oh-Boy', '414-296-3610', '',''),
 ('Ms.', 'Monica', 'Patric', '3000Y Biking', '681-291-5891', '',''), ('Mr.', 'Patrick', 'Patric', 'Patrick-Land', '666-333-7777', '',''), ('Ms.', 'Tripanoshoa', 'Patrick', 'Cactus Lack', '696-676-7420', '','')
 GO
+-- =============================================
+-- =============================================
+-- Zadanie 4
+SELECT *
+FROM [240164].[Customer]
+FOR SYSTEM_TIME ALL
+WHERE CustomerID = 5
+-- =============================================
+-- =============================================
+-- Zadanie 5
+SELECT *
+FROM [240164].[Customer]
+FOR SYSTEM_TIME AS OF '2026-04-16 10:00:00.000000'
+-- =============================================
+-- =============================================
+-- Zadanie 6
+CREATE XML SCHEMA COLLECTION AttributeSchema AS N'
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Product" type="ProductAttribute"/>
+  <xs:complexType name="ProductAttribute">
+    <xs:sequence>
+      <xs:element name="Color" type="xs:string"/>
+      <xs:element name="ListPrice" type="xs:decimal"/>
+	  <xs:element name="StandardPrice" type="xs:decimal"/>
+	  <xs:element name="Weight" type="xs:decimal"/>
+	  <xs:element name="Size" type="xs:string"/>
+	  <xs:
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>';
 
+CREATE TABLE [SalesLT].[ProductAttribute] (
+	ProductID int,
+	Attributes xml(AttributeSchema) NULL,
+	CONSTRAINT FORK_PRDTATT_PRDT FOREIGN KEY (ProductID) REFERENCES [SalesLT].[Product](ProductID)
+	)
+INSERT INTO [SalesLT].[ProductAttribute]
+VALUES (1, '
+
+
+	
 -- =============================================
