@@ -77,7 +77,7 @@ GO
 -- Zadanie 5
 SELECT *
 FROM [240164].[Customer]
-FOR SYSTEM_TIME AS OF '2026-04-16 10:00:00.000000'
+FOR SYSTEM_TIME AS OF '2026-04-16 10:00:00.000000' --Z poprzedniego zadania sprawdzilem kiedy były robione te zmiany i po prostu ustawiłem czas na przed tym zmianami, pewnie da się to zrobić inaczej ale na taki pomysł wpadłem bo najłatwiejszy. Moze jakbym dodał modifieddate jako getdate() to mógłbym przez WHERE sprawdzić ale chyba tak najprościej.
 GO
 -- =============================================
 -- =============================================
@@ -99,7 +99,7 @@ CREATE XML SCHEMA COLLECTION AttributeSchema AS N'
 </xs:schema>';
 GO
 CREATE TABLE [SalesLT].[ProductAttribute] (
-	ProductID int PRIMARY KEY NOT NULL, --Moglbym zrobic attributeid ale w SalesLT.Product ProductID tez jest PK wiec stwierdzam, że po co, tam też są jakieś cechy wpisane, więc zakładam, że nagle ktoś nie będzie miał potrzeby dodanie nowych cech do istniejącego produktu.
+	ProductID int PRIMARY KEY NOT NULL, --Moglbym zrobic attributeid ale w SalesLT.Product ProductID tez jest PK wiec stwierdzam, że po co, tam też są jakieś cechy wpisane, więc zakładam, że nagle ktoś nie będzie miał potrzeby dodania nowych cech do istniejącego produktu.
 	Attributes xml(AttributeSchema) NULL,
 	CONSTRAINT FORK_PRDTATT_PRDT FOREIGN KEY (ProductID) REFERENCES [SalesLT].[Product](ProductID)
 	)
