@@ -55,8 +55,9 @@ CREATE TABLE Student_4.ProduktyP (
 	)
 GO
 INSERT INTO Student_4.ProduktyP(ProductID, Name, Category, ListPrice)
-SELECT ProductID, Name, Category, ListPrice
-FROM SalesLT.Product
+SELECT prd.ProductID, prd.Name, prdctg.Name, prd.ListPrice
+FROM SalesLT.Product prd
+JOIN SalesLT.ProductCategory prdctg ON prd.ProductCategoryID = prdctg.ProductCategoryID
 GO
 -- =============================================
 -- =============================================
