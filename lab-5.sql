@@ -104,6 +104,6 @@ CREATE TABLE [SalesLT].[ProductAttribute] (
 -- =============================================
 -- =============================================
 -- Zadanie 7
-INSERT INTO [SalesLT].[ProductAttribute]
-VALUES 
+INSERT INTO [SalesLT].[ProductAttribute](ProductID, Attributes)
+VALUES (680, '<Product><Color>Black</Color><ListPrice>
 -- =============================================
