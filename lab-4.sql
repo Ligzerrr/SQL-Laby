@@ -45,7 +45,7 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 4
-CREATE SCHEMA Student_4 AUTHORIZATION student
+CREATE SCHEMA Student_4 AUTHORIZATION dbo
 GO
 CREATE TABLE Student_4.ProduktyP (
 	ProductID int,
@@ -77,7 +77,7 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 6
-CREATE SCHEMA [240164] AUTHORIZATION student --Nie miałem zbytnio o czym pisać w tym labie, tutaj musiałem dać nawiasy kwadratowe, ponieważ w innym przypadku 240164 traktowane jest jako liczba (int)
+CREATE SCHEMA [240164] AUTHORIZATION dbo --Nie miałem zbytnio o czym pisać w tym labie, tutaj musiałem dać nawiasy kwadratowe, ponieważ w innym przypadku 240164 traktowane jest jako liczba (int)
 GO
 ALTER SCHEMA [240164] TRANSFER SalesLT.Customer -- SalesLT jest nazwą SCHEMATU.
 ALTER SCHEMA [240164] TRANSFER SalesLT.CustomerAddress --Nie da się przenieść za pomocą jednej instrukcji, chyba, że o tym nie wiem lub jakoś dynamicznie, dwóch tabel jednocześnie.
