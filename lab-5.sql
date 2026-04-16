@@ -47,7 +47,11 @@ UPDATE [240164].[Customer]
 SET FirstName = 'Janet'
 WHERe CustomerID = 65
 UPDATE [240164].[Customer]
-
+SET LastName = 'Grander'
+WHERE CustomerID = 142
+UPDATE [240164].[Customer]
+SET LastName = 'Mongolian'
+WHERE CustomerID = 34
 GO
 
 INSERT INTO [240164].[Customer](
