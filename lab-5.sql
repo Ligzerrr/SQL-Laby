@@ -1,4 +1,4 @@
--- =============================================
+﻿-- =============================================
 -- Piotr
 -- Popiel
 -- 240164
@@ -13,8 +13,8 @@ https://github.com/Ligzerrr/SQL-Laby/tree/lab-5-database
 -- Zadanie 2
 ALTER TABLE [240164].[Customer] 
 ADD
-	StartSys datetime2 GENERATED ALWAYS AS ROW START NOT NULL,
-	EndSys datetime2 GENERATED ALWAYS AS ROW END NOT NULL,
+	StartSys datetime2 GENERATED ALWAYS AS ROW START DEFAULT GETDATE() NOT NULL, --Musiałem dodać defaultowe wartości inaczej nie przepuści mnie alter table 
+	EndSys datetime2 GENERATED ALWAYS AS ROW END DEFAULT '9999-12-31 0:00:00' NOT NULL,
 	PERIOD FOR SYSTEM_TIME (StartSys, EndSys)
 GO
 ALTER TABLE [240164].[Customer]
@@ -22,6 +22,7 @@ SET (SYSTEM_VERSIONING = ON (HISTORY_TABLE = [240164].[CustomerHistory]))
 -- =============================================
 -- =============================================
 -- Zadanie 3
-
+UPDATE [240164].[Customer]
+SET 
 
 -- =============================================
