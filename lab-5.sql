@@ -23,6 +23,32 @@ SET (SYSTEM_VERSIONING = ON (HISTORY_TABLE = [240164].[CustomerHistory]))
 -- =============================================
 -- Zadanie 3
 UPDATE [240164].[Customer]
-SET 
+SET FirstName = 'Kesha', Title = 'Ms.'
+WHERE CustomerID = 2
+UPDATE [240164].[Customer]
+SET FirstName = 'Donovan', Title = 'Mr.', LastName = 'Smith', Suffix = 'Sr.'
+WHERE CustomerID = 3
+UPDATE [240164].[Customer]
+SET FirstName = 'Jane', LastName = 'Remover'
+WHERE CustomerID = 4
+UPDATE [240164].[Customer]
+SET LastName = 'Bedroque', Title = 'Ms.'
+WHERE CustomerID = 5
+UPDATE [240164].[Customer]
+SET MiddleName = 'L.'
+WHERE CustomerID = 7
+UPDATE [240164].[Customer]
+SET CompanyName = '3000-Promise'
+WHERE CustomerID = 23
+UPDATE [240164].[Customer]
+SET Phone = '233-251-6244'
+WHERE CustomerID = 55
+UPDATE [240164].[Customer]
+SET FirstName = 'Janet'
+WHERe CustomerID = 65
+UPDATE [240164].[Customer]
 
+GO
+
+INSERT INTO [240164].[Customer](
 -- =============================================
