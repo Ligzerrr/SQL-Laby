@@ -151,22 +151,18 @@ SET Attributes = '<Product><Color>Plank Brown</Color><ListPrice>34.9900</ListPri
 WHERE ProductID = 711
 -- =============================================
 -- Zadanie 9
-DECLARE @jsonAddress nvarchar(max)
+DECLARE @jsonAddress nvarchar(max) --zgodnie z zadaniem nvarchar(max), 
 SET @jsonAddress = N'{
-	"info":{
-		"type":1,
 		"address":{
 			"city":"Warsaw",
 			"voivodeship":"Masovian",
 			"country":"Poland",
 			"zip-code":"00-002"
 		}
-	},
-	"type":"Basic"
-}'
-SELECT @jsonAddress
+	}'
+SELECT @jsonAddress -- address przed zmiana zip-code na 240164
 
-SET @jsonAddress = JSON_MODIFY(@jsonAddress, '$.info.address."zip-code"', '240164')
+SET @jsonAddress = JSON_MODIFY(@jsonAddress, '$.address."zip-code"', '240164') --modifykacja za pomoca JSON_MODIFY
 
 SELECT @jsonAddress as [240164JSON]
 
