@@ -57,5 +57,6 @@ GO
 INSERT INTO [240164].[Customer](Title, FirstName, LastName, CompanyName, Phone, PasswordHash, PasswordSalt)
 VALUES ('Mr.', 'Don', 'Patricio', 'Biking-Hiking 3000', '581-581-6901', '',''), ('Ms.', 'Shyanne', 'Pralic', 'Boy-Oh-Boy', '414-296-3610', '',''),
 ('Ms.', 'Monica', 'Patric', '3000Y Biking', '681-291-5891', '',''), ('Mr.', 'Patrick', 'Patric', 'Patrick-Land', '666-333-7777', '',''), ('Ms.', 'Tripanoshoa', 'Patrick', 'Cactus Lack', '696-676-7420', '','')
+GO
 
 -- =============================================
