@@ -55,7 +55,9 @@ SELECT *
 From SalesLT.ProductAttribute
 --Tak samo zrobiłem jak poprzedni update
 TRUNCATE TABLE SalesLT.ProductAttribute
-
+SELECT *
+From SalesLT.ProductAttribute
+--Przed rollbackiem wszystkie zmiany (INSERTY UPDATEY oraz TRUNCATE TABLE) były widoczne ALE nie zostały zatwierdzone, rollback cofnął całą tranzakcję do stanu początkowego (czyli tabele efektywnie powróciły do stanu zerowego) Tabela tak się zachowuje przez ACID, D(urability) nie spełniło się z powodu braku COMMITA, więc dane tranzakcji nie zostały na dysku.
 ROLLBACK TRAN
 SELECT *
 FROM SalesLT.Address
@@ -63,4 +65,5 @@ SELECT *
 From SalesLT.Product
 SELECT *
 From SalesLT.ProductAttribute
+
 -- =============================================
