@@ -18,8 +18,27 @@ ROLLBACK TRAN
 -- Zadanie 2
 BEGIN TRAN
 UPDATE SalesLT.Address
-SET City = Cracow
-WHERE CustomerID = 7
-
+SET City = 'Cracow'
+WHERE AddressID = 470
+UPDATE SalesLT.Address
+SET City = 'Warsaw'
+WHERE AddressID = 471
+UPDATE SalesLT.Address
+SET StateProvince = 'Lesser Poland'
+WHERE AddressID = 479
+UPDATE SalesLT.Address
+SET AddressLine1 = 'Mongolia Drive 32'
+WHERE AddressID = 482
+Update SalesLT.Address
+SET AddressLine2 = 'Fake China Town'
+WHERE AddressID = 489
+INSERT INTO SalesLT.Address(AddressLine1, City, StateProvince, CountryRegion, PostalCode)
+VALUES('912 Davisson Street', 'Richmond', 'Indiana', 'United States', '47374'), ('1038 Alfred Drive', 'Bayside', 'New York', 'United States', '11361'),
+('4813 Oakmound Road', 'Chicago', 'Illinois', 'United States', '60605'), ('3300 Yorkshire Circle', 'Greenville', 'North Carolina', 'United States', '27834'),
+('2207 Randolph Street', 'Burlington', 'Massachusetts', 'United States', '01803')
+--Brałem to z generatora adresów
+UPDATE SalesLT.Product
+SET Color = 'Brown'
+WHERE ProductID BETWEEN 740 AND 751 --Tak będzie trochę wygodniej mi to zrobić
 
 -- =============================================
