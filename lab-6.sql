@@ -40,5 +40,11 @@ VALUES('912 Davisson Street', 'Richmond', 'Indiana', 'United States', '47374'), 
 UPDATE SalesLT.Product
 SET Color = 'Brown'
 WHERE ProductID BETWEEN 740 AND 751 --Tak będzie trochę wygodniej mi to zrobić
+--Nie wiem o co chodzi z modyfikowaniem dokładnie więc zakładam o zmodyfikowanie ProductAttribute bo tam jest XML.
+UPDATE [SalesLT].[ProductAttribute]
+SET Attributes.modify('replace value of (/Product/Size)[1] with "XXXXL"')
+WHERE ProductID BETWEEN 680 AND 712
+--Tak samo zrobiłem jak poprzedni update
+
 
 -- =============================================
