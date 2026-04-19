@@ -36,15 +36,31 @@ INSERT INTO SalesLT.Address(AddressLine1, City, StateProvince, CountryRegion, Po
 VALUES('912 Davisson Street', 'Richmond', 'Indiana', 'United States', '47374'), ('1038 Alfred Drive', 'Bayside', 'New York', 'United States', '11361'),
 ('4813 Oakmound Road', 'Chicago', 'Illinois', 'United States', '60605'), ('3300 Yorkshire Circle', 'Greenville', 'North Carolina', 'United States', '27834'),
 ('2207 Randolph Street', 'Burlington', 'Massachusetts', 'United States', '01803')
+--Zrobie w sumie SELECT po każdych 10 zmianach
+SELECT *
+FROM SalesLT.Address
 --Brałem to z generatora adresów
 UPDATE SalesLT.Product
 SET Color = 'Brown'
 WHERE ProductID BETWEEN 740 AND 751 --Tak będzie trochę wygodniej mi to zrobić
+
+SELECT *
+From SalesLT.Product
 --Nie wiem o co chodzi z modyfikowaniem dokładnie więc zakładam o zmodyfikowanie ProductAttribute bo tam jest XML.
-UPDATE [SalesLT].[ProductAttribute]
+UPDATE SalesLT.ProductAttribute
 SET Attributes.modify('replace value of (/Product/Size)[1] with "XXXXL"')
 WHERE ProductID BETWEEN 680 AND 712
+
+SELECT *
+From SalesLT.ProductAttribute
 --Tak samo zrobiłem jak poprzedni update
+TRUNCATE TABLE SalesLT.ProductAttribute
 
-
+ROLLBACK TRAN
+SELECT *
+FROM SalesLT.Address
+SELECT *
+From SalesLT.Product
+SELECT *
+From SalesLT.ProductAttribute
 -- =============================================
