@@ -16,6 +16,10 @@ ROLLBACK TRAN
 -- =============================================
 -- =============================================
 -- Zadanie 2
+BEGIN TRAN
+UPDATE SalesLT.Address
+SET City = Cracow
+WHERE CustomerID = 7
 
 
 -- =============================================
