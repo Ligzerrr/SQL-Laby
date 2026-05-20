@@ -151,6 +151,9 @@ END CATCH
 --Dzielenie przez 0 daje ErrorNumber 8134, Error Message "Divide by zero error encountered."
 -- =============================================
 -- Zadanie 5
+--Niestety innego pomysłu nie miałem oprócz zmieniana cen dla danych ProductID, np. przez infalcję lub poprostu podwyżkę cen hurtowych itd itp.
+--@CHANGEDLISTPRICE to nowa cena za jaką bedzie produkt sprzedawany, @CHANGEDSTANDARDPRICE cena hurtowa produktu, no i @SELECTEDPRODUCTID to jest wybrany produkt (jego id).
+--IF sprawdzam czy istnieje wogole Produkt o danym ProductID oraz czy przedsiebiorstwo nie popelnia bledu sprzedajac produkt z negatywna marżą (lol).
 DECLARE @CHANGEDLISTPRICE MONEY = 1500.50 --Tutaj wpisać co się chcę.
 DECLARE @CHANGEDSTANDARDPRICE MONEY = 900.50
 DECLARE @SELECTEDPRODUCTID INT = 717
@@ -158,5 +161,23 @@ DECLARE @SELECTEDPRODUCTID INT = 717
 BEGIN TRY
 	IF @CHANGEDLISTPRICE < @CHANGEDSTANDARDPRICE
 	BEGIN
-		THROW 69594892
+		;THROW 69594892, 'wow porazka przedsiebiorcza', 1 --? Nie wiem dlaczego średnik naprawia to THROW wyczytałem na internecie ale dalej nie rozumiem dlaczego.
+	END
+	IF NOT EXISTS (SELECT ProductID FROM SalesLT.Product WHERE ProductID = @SELECTEDPRODUCTID)
+	BEGIN
+		;THROW 69594893, 'Dany ProductID nie istnieje', 1 
+	END
+
+	UPDATE SalesLT.PRODUCT
+	SET StandardCost = @CHANGEDSTANDARDPRICE, ListPrice = @CHANGEDLISTPRICE
+	WHERE ProductID = @SELECTEDPRODUCTID
+END TRY
+BEGIN CATCH
+	SELECT
+		ERROR_NUMBER as ErrorNumber,
+
+
+	
+
+
 -- =============================================
