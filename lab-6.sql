@@ -79,6 +79,7 @@ WHERE AddressID = 471
 UPDATE SalesLT.Address
 SET StateProvince = 'Lesser Poland'
 WHERE AddressID = 479
+WAITFOR DELAY '00:05:00'
 UPDATE SalesLT.Address
 SET AddressLine1 = 'Mongolia Drive 32'
 WHERE AddressID = 482
@@ -106,7 +107,7 @@ WHERE ProductID BETWEEN 680 AND 712
 
 SELECT *
 From SalesLT.ProductAttribute
---Tak samo zrobiłem jak poprzedni update
+
 TRUNCATE TABLE SalesLT.ProductAttribute
 SELECT *
 From SalesLT.ProductAttribute
