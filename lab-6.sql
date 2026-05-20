@@ -119,7 +119,7 @@ SELECT *
 From SalesLT.Product
 SELECT *
 From SalesLT.ProductAttribute
-
+GO
 -- W niezależnej sesji odpaliłem:
 /*
 SELECT StateProvince
@@ -148,12 +148,14 @@ BEGIN CATCH
 		ERROR_LINE() AS ErrorLine,
 		ERROR_MESSAGE() AS ErrorMessage
 END CATCH
+GO
 --Dzielenie przez 0 daje ErrorNumber 8134, Error Message "Divide by zero error encountered."
 -- =============================================
 -- Zadanie 5
 --Niestety innego pomysłu nie miałem oprócz zmieniana cen dla danych ProductID, np. przez infalcję lub poprostu podwyżkę cen hurtowych itd itp.
 --@CHANGEDLISTPRICE to nowa cena za jaką bedzie produkt sprzedawany, @CHANGEDSTANDARDPRICE cena hurtowa produktu, no i @SELECTEDPRODUCTID to jest wybrany produkt (jego id).
 --IF sprawdzam czy istnieje wogole Produkt o danym ProductID oraz czy przedsiebiorstwo nie popelnia bledu sprzedajac produkt z negatywna marżą (lol).
+--W przypadku jesli wyrzuci blad wyswietli sie ERRORNUMBER ERRORLINE oraz ERRORMESSAGE
 DECLARE @CHANGEDLISTPRICE MONEY = 1500.50 --Tutaj wpisać co się chcę.
 DECLARE @CHANGEDSTANDARDPRICE MONEY = 900.50
 DECLARE @SELECTEDPRODUCTID INT = 717
@@ -174,10 +176,39 @@ BEGIN TRY
 END TRY
 BEGIN CATCH
 	SELECT
-		ERROR_NUMBER as ErrorNumber,
-
+		ERROR_NUMBER() as ErrorNumber,
+		ERROR_LINE() as ErrorLine,
+		ERROR_MESSAGE() as ErrorMessage
+END CATCH
 
 	
 
 
 -- =============================================
+-- =============================================
+-- Zadanie 6
+DECLARE @CHANGEDLISTPRICE MONEY = 1500.50 
+DECLARE @CHANGEDSTANDARDPRICE MONEY = 900.50
+DECLARE @SELECTEDPRODUCTID INT = 717
+BEGIN TRAN
+BEGIN TRY
+	IF @CHANGEDLISTPRICE < @CHANGEDSTANDARDPRICE
+	BEGIN
+		;THROW 69594892, 'wow porazka przedsiebiorcza', 1 
+	END
+	IF NOT EXISTS (SELECT ProductID FROM SalesLT.Product WHERE ProductID = @SELECTEDPRODUCTID)
+	BEGIN
+		;THROW 69594893, 'Dany ProductID nie istnieje', 1 
+	END
+
+	UPDATE SalesLT.PRODUCT
+	SET StandardCost = @CHANGEDSTANDARDPRICE, ListPrice = @CHANGEDLISTPRICE
+	WHERE ProductID = @SELECTEDPRODUCTID
+END TRY
+BEGIN CATCH
+	SELECT
+		ERROR_NUMBER() as ErrorNumber,
+		ERROR_LINE() as ErrorLine,
+		ERROR_MESSAGE() as ErrorMessage
+END CATCH
+ROLLBACK TRAN
