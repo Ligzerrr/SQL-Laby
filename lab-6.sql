@@ -151,9 +151,12 @@ END CATCH
 --Dzielenie przez 0 daje ErrorNumber 8134, Error Message "Divide by zero error encountered."
 -- =============================================
 -- Zadanie 5
-DECLARE @CHANGEDLISTPRICE INT = 
-DECLARE @CHANGEDSTANDARDPRICE 
+DECLARE @CHANGEDLISTPRICE MONEY = 1500.50 --Tutaj wpisać co się chcę.
+DECLARE @CHANGEDSTANDARDPRICE MONEY = 900.50
+DECLARE @SELECTEDPRODUCTID INT = 717
+
 BEGIN TRY
 	IF @CHANGEDLISTPRICE < @CHANGEDSTANDARDPRICE
-
+	BEGIN
+		THROW 69594892
 -- =============================================
