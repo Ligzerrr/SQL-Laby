@@ -79,7 +79,7 @@ WHERE AddressID = 471
 UPDATE SalesLT.Address
 SET StateProvince = 'Lesser Poland'
 WHERE AddressID = 479
-WAITFOR DELAY '00:05:00'
+WAITFOR DELAY '00:01:00'
 UPDATE SalesLT.Address
 SET AddressLine1 = 'Mongolia Drive 32'
 WHERE AddressID = 482
@@ -120,4 +120,25 @@ From SalesLT.Product
 SELECT *
 From SalesLT.ProductAttribute
 
+-- W niezależnej sesji odpaliłem:
+/*
+SELECT StateProvince
+FROM SalesLT.Address
+WHERE AddressID = 479
+Ten select przez Read Commited Snapshot czytał mi snapshot danych aka dane, które były już commitowane.
+
+Poniższy select ma WITH (NOLOCK), które obchodzi blokade, która wystąpiła przez WAITFOR DELAY i czyta już zupdateowane dane.
+SELECT *
+FROM SalesLT.Address
+WITH (NOLOCK)
+WHERE AddressID = 479
+*/
+-- =============================================
+-- Zadanie 1
+BEGIN TRAN
+SELECT * FROM SalesLT.Product WITH (Tablockx) --TABLOCKX powoduje Blokade całej tabeli, Wiersze oraz czasami stronę można zablokować poprzez zrobienie zbyt dużych zmian typu update, ale TABLOCKX jest najprostszym i najlepszym sposobem zablokowania całej tabeli.
+-- Warto zaznaczyć, że z tej samej sesji zmiany przechodzą, ale np. inny użytkownik w sesji 2 musiałby poczekać aż tran zostanie commitowana lub rollbacknięta.
+--Blokowanie tabeli jest niebezpieczne, wszystkie inne sesje nie mają wpływu na dane, a wszystko  pozostaję zależne od sesji, która zablokowała tabelę. Na dodatek im dłuższy lock tym większa szansa na timeout, który niesie ze sobą dużo problemów np. cancel query, (bardzo źle...)
+--Blokowanie tabeli jest mniej optymalne, niż blokowanie samych wierszy - gdy np chcemy sie upewnic, że ktoś nie zmodyfikuję wierszy (na których pracujemy), ale dalej pozwala to na dodawanie i odczyt reszty tabeli!
+ROLLBACK TRAN
 -- =============================================
