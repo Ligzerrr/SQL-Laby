@@ -16,4 +16,4 @@ ALTER COLUMN LastName P4_surname
 -- =============================================
 -- Zadanie 2
 --Tutaj deklaruje zmienna jsonowa
-DECLARE @ProductInfo NVARCHAR(MAX) = N'[{"ProductID":717
+DECLARE @ProductInfo NVARCHAR(MAX) = N'[{"ProductID":717, "NewPrice": 1730.13},{"ProductID":718, "NewPrice": 2003.30},{"ProductID": 720, "NewPrice": 6001.34},{"ProductID": 730, "NewPrice": 50.31},{"ProductID": 740, "NewPrice": 705.50}]'
