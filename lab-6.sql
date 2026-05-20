@@ -144,9 +144,9 @@ BEGIN CATCH
 		ERROR_NUMBER() AS ErrorNumber,
 		ERROR_SEVERITY() AS ErrorNumber,
 		ERROR_STATE() As ErrorNumber,
-		ERROR_PROCEDURE AS ErrorProcedure,
-		ERROR_LINE() AS ErrorLine
-
+		ERROR_PROCEDURE() AS ErrorProcedure,
+		ERROR_LINE() AS ErrorLine,
+		ERROR_MESSAGE() AS ErrorMessage
 END CATCH
-
+--Dzielenie przez 0 daje ErrorNumber 8134, Error Message "Divide by zero error encountered."
 -- =============================================
