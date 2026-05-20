@@ -150,3 +150,10 @@ BEGIN CATCH
 END CATCH
 --Dzielenie przez 0 daje ErrorNumber 8134, Error Message "Divide by zero error encountered."
 -- =============================================
+-- Zadanie 5
+DECLARE @CHANGEDLISTPRICE INT = 
+DECLARE @CHANGEDSTANDARDPRICE 
+BEGIN TRY
+	IF @CHANGEDLISTPRICE < @CHANGEDSTANDARDPRICE
+
+-- =============================================
