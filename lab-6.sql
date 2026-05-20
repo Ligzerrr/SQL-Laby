@@ -140,6 +140,13 @@ BEGIN TRY
 END TRY
 BEGIN CATCH
 	PRINT 'Div Error'
+	SELECT
+		ERROR_NUMBER() AS ErrorNumber,
+		ERROR_SEVERITY() AS ErrorNumber,
+		ERROR_STATE() As ErrorNumber,
+		ERROR_PROCEDURE AS ErrorProcedure,
+		ERROR_LINE() AS ErrorLine
+
 END CATCH
 
 -- =============================================
