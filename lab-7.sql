@@ -32,8 +32,9 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 3
-CREATE VIEW dbo.[240164_Order] AS
-SELECT TOP 100 LastName, FirstName --Chyba tak to trzeba zrobic jesli widok ma zawierac ORDER BY. Mozna jeszcze zrobic bez TOP ale potrzeba wtedy wziac ORDER BY do nastepnego SELECTA, ale chyba o to rozwiazanie chodzilo.
+--Tak samo jak w zad 4 i 5 daje juz OR ALTER VIEW przez ilosc zmian
+CREATE OR ALTER VIEW dbo.[240164_Order] AS
+SELECT TOP 1000 LastName, FirstName --Chyba tak to trzeba zrobic jesli widok ma zawierac ORDER BY. Mozna jeszcze zrobic bez TOP ale potrzeba wtedy wziac ORDER BY do nastepnego SELECTA, ale chyba o to rozwiazanie chodzilo.
 FROM [240164].[Customer]
 ORDER BY LastName DESC
 GO
@@ -62,10 +63,11 @@ GO
 -- =============================================
 -- Zadanie 5
 --Tutaj użyje po prostu mojego widoku z zadania 4, dzięki temu nie bede musiał wymyslać kolejnego widoku.
+--Widok pozwoli na wyswietlenie produktow ktore maja cene netto ustawiona na albo zbyt wysoka albo zbyt niska (w relacji do Predicted Net Price)
 CREATE OR ALTER VIEW Student_4.BetterLogicIG AS
 SELECT [P ID], [Net Price], [Predicted Net Price], ([Predicted Net Price] - [Net Price]) as [Price diff]
 FROM Student_4.MyLogicView
-WHERE (-1 * [Predicted Net Price]*1.05) < [Net Price] OR [Predicted Net Price] > [Net Price]
+WHERE [Predicted Net Price] <> [Net Price]
 GO
 
 SELECT * 
