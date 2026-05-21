@@ -44,9 +44,23 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 4
+--Prosty widok przedstawiający przewidywaną cenę z marzą, oficjalną cenę netto, oraz cenę brutto (podatek vat 23%)
+--Oczywiscie zakladam ze standardcost oraz ListPrice nie są opodatkowane.
+--Dzieki temu widokowi biznes wie jaka jest sugerowana cena, ułatwi to ludziom odpowiedzialnym za ustawianie cen łatwiej dopasować ceny.
+CREATE VIEW Student_4.MyLogicView AS
+SELECT ListPrice as [Net Price], (StandardCost * 1.15) as [Predicted Net Price], (ListPrice * 1.23) as [Gross Price]
+FROM SalesLT.Product
+GO
 
-CREATE VIEW dbo.Student_4.MyLogicView AS
-SELECT ListPrice as [Net Price], (StandardPrice * 1.15) as [Predicted Net Price], (ListPrice * 1.23) as [Gross Price]
+SELECT *
+FROM Student_4.MyLogicView
+ORDER BY [Net Price] DESC
+GO
 
 -- =============================================
-
+-- =============================================
+-- Zadanie 5
+--Tutaj użyje po prostu mojego widoku z zadania 4, dzięki temu nie bede musiał wymyslać kolejnego widoku.
+CREATE VIEW Student_4.BetterLogicIG AS
+SELECT 
+-- =============================================
