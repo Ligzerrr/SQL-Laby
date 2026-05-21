@@ -43,7 +43,9 @@ FROM dbo.[240164_Order]
 -- =============================================
 -- =============================================
 -- Zadanie 4
+DECLARE @Tax decimal(3,3)
+
 CREATE VIEW dbo.Student_4.MyLogicView
-SELECT 
+SELECT ListPrice as [Net Price], (StandardPrice * 1.15) as [Predicted Net Price], (ListPrice * @Tax)
 -- =============================================
 
