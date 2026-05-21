@@ -44,6 +44,6 @@ FROM dbo.[240164_Order]
 -- =============================================
 -- Zadanie 4
 CREATE VIEW dbo.Student_4.MyLogicView
-
+SELECT 
 -- =============================================
 
