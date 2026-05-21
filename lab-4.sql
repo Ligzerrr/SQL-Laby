@@ -58,6 +58,7 @@ INSERT INTO Student_4.ProduktyP(ProductID, Name, Category, ListPrice)
 SELECT prd.ProductID, prd.Name, prdctg.Name, prd.ListPrice
 FROM SalesLT.Product prd
 JOIN SalesLT.ProductCategory prdctg ON prd.ProductCategoryID = prdctg.ProductCategoryID
+WHERE prdctg.Name LIKE '%P%'
 GO
 -- =============================================
 -- =============================================
