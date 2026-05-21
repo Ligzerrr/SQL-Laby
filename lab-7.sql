@@ -62,10 +62,13 @@ GO
 -- =============================================
 -- Zadanie 5
 --Tutaj użyje po prostu mojego widoku z zadania 4, dzięki temu nie bede musiał wymyslać kolejnego widoku.
-CREATE VIEW Student_4.BetterLogicIG AS
-SELECT [Net Price], [Predicted Net Price], ([Predicted Net Price] - [Net Price]) as [Price diff]
+CREATE OR ALTER VIEW Student_4.BetterLogicIG AS
+SELECT [P ID], [Net Price], [Predicted Net Price], ([Predicted Net Price] - [Net Price]) as [Price diff]
 FROM Student_4.MyLogicView
+WHERE (-1 * [Predicted Net Price]*1.05) < [Net Price] OR [Predicted Net Price] > [Net Price]
 GO
 
 SELECT * 
+FROM Student_4.BetterLogicIG
+ORDER BY [Price Diff] ASC
 -- =============================================
