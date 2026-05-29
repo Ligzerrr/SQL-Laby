@@ -7,6 +7,7 @@
 -- =============================================
 -- =============================================
 -- Zadanie 1
+--Tutaj tworze tabele do histori produktu aka audytu czy jak to się tam zwie, z historyid jako primary key itd. OldLP = OldListPrice analogicznie NewLP
 CREATE TABLE SalesLT.ProductPriceHistory (
 HistoryID int identity PRIMARY KEY,
 ProductID int,
