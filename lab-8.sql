@@ -67,7 +67,7 @@ GO
 -- =============================================
 -- Zadanie 3
 WITH PRODUCTCATEGORYTHING AS (
-	SELECT ProductCategoryID, ParentProductCategoryID, Name, 0 AS Level
+	SELECT Name AS Level0
 	FROM SalesLT.ProductCategory
 	WHERE ParentProductCategoryID is NULL
 	UNION ALL
