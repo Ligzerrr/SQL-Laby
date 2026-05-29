@@ -66,6 +66,18 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 3
+WITH PRODUCTCATEGORYTHING AS (
+	SELECT ProductCategoryID, ParentProductCategoryID, Name, 0 AS Level
+	FROM SalesLT.ProductCategory
+	WHERE ParentProductCategoryID is NULL
+	UNION ALL
+    
+	SELECT
+		PrdtC.
+)
+SELECT *
+FROM ProductCategoryThing
+ORDER BY Level, Name
 -- =============================================
 -- =============================================
 -- Zadanie 4
