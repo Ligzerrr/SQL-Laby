@@ -22,11 +22,12 @@ ON SalesLT.Product
 AFTER UPDATE
 AS
 BEGIN
+	SET NOCOUNT ON --ustawilem nocount zeby nie wyswietlaly sie komunikaty o zmianie wierszy d
 	INSERT INTO SalesLT.ProductPriceHistory(ProductID, OldLP, NewLP)
 	SELECT ins.ProductID, prdt.ListPrice as OldLP, ins.ListPrice as NewLP
 	FROM INSERTED ins
 	JOIN DELETED prdt on ins.ProductID	= prdt.ProductID
-
+	WHERE ISNULL(prdt.ListPrice, -1) <> ISNULL(i.ListPrice, -1)
 -- =============================================
 -- =============================================
 -- Zadanie 2
