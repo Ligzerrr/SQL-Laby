@@ -34,7 +34,7 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 2
---Najpierw tworze tabele DeletedCustomerLog z tresci zadani
+--Najpierw tworze tabele DeletedCustomerLog z tresci zadania, w tym zadaniu musze uzyc SalesLT.Customer bo [240164] jest wersjonowane i nie przepusci mnie sql.
 CREATE TABLE SalesLT.DeletedCustomersLog (
 HistoryID int primary key identity,
 CustomerID int,
@@ -45,13 +45,16 @@ CREATE OR ALTER TRIGGER CustomerTrigga
 ON SalesLT.Customer
 INSTEAD OF DELETE
 AS
-BEGIN --Musze zrobic tutaj DELETE FROM Customer UPDATE Customer I INSERT INTO Customerslog 
+BEGIN --Musze zrobic tutaj DELETE FROM Customer UPDATE Customer I INSERT INTO Customerslog
 	SET NOCOUNT ON
+	INSERT INTO SalesLT.DeletedCustomersLog (CustomerID)
+	SELECT Customer.CustomerID FROM SalesLT.Customer Customer
+
 	UPDATE Customer
 	SET Customer.IsDeleted = 1, Customer.ModifiedDate = SYSUTCDATETIME()
 	FROM SalesLT.Customer as Customer
 	INNER JOIN DELETED AS Del on Customer.CustomerID = Del.CustomerID
-	WHERE EXISTS (SELECT Customer.CustomerID FROM SalesLT.Customer JOIN SalesLT.SalesOrderHeader SOH on Customer.CustomerID = SOH.CustomerID)
+	WHERE EXISTS (SELECT del.CustomerID FROM DELETED JOIN SalesLT.SalesOrderHeader SOH on Customer.CustomerID = SOH.CustomerID) --mialem tutaj blad bo dalem saleslt.customer zamiast from deleted
 END
 GO
 		
