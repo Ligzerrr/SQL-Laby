@@ -55,7 +55,10 @@ BEGIN --Musze zrobic tutaj DELETE FROM Customer UPDATE Customer I INSERT INTO Cu
 	SET Customer.IsDeleted = 1, Customer.ModifiedDate = SYSUTCDATETIME()
 	FROM SalesLT.Customer as Customer
 	INNER JOIN DELETED AS Del on Customer.CustomerID = Del.CustomerID
-	WHERE EXISTS (SELECT Customer.CustomerID FROM SalesLT.Customer Customer JOIN SalesLT.SalesOrderHeader SOH on Customer.CustomerID = SOH.CustomerID) 
+	WHERE EXISTS (SELECT Customer.CustomerID FROM SalesLT.Customer Customer JOIN SalesLT.SalesOrderHeader SOH on Customer.CustomerID = SOH.CustomerID)
+
+	DELETE FROM SalesLT.Customer
+	WHERE CustomerID IN (SELECT CustomerID FROM DELETED WHERE NOT EXISTS (SELECT Customer.CustomerID FROM SalesLT.Customer Customer JOIN SalesLT.SalesOrderHeader SOH on Customer.CustomerID = SOH.CustomerID)) 
 END
 GO
 		
