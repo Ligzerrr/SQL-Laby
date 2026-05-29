@@ -16,6 +16,7 @@ NewLP money,
 ChangedAuthor SYSNAME DEFAULT SYSTEM_USER,
 ChangedDate DATETIME2 DEFAULT SYSDATETIME()
 )
+GO
 -- Tworze od razu z create or alter bo pewnie bede musial cos zmienic
 CREATE OR ALTER TRIGGER SalesTrigga
 ON SalesLT.Product
@@ -27,7 +28,9 @@ BEGIN
 	SELECT ins.ProductID, prdt.ListPrice as OldLP, ins.ListPrice as NewLP
 	FROM INSERTED ins
 	JOIN DELETED prdt on ins.ProductID	= prdt.ProductID
-	WHERE ISNULL(prdt.ListPrice, -1) <> ISNULL(i.ListPrice, -1)
+	WHERE ISNULL(prdt.ListPrice, -1) <> ISNULL(i.ListPrice, -1) --Where sprawdza gdzie cena sie zmienila.
+END
+GO
 -- =============================================
 -- =============================================
 -- Zadanie 2
