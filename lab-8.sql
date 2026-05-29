@@ -12,9 +12,9 @@ HistoryID int identity PRIMARY KEY,
 ProductID int,
 OldLP money,
 NewLP money,
-ChangedBy SYSNAME DEFAULT SYSTEM_USER,
-ChangedDate DATETIME2 DEFAULT SYSDATETIME(),
-
+ChangedAuthor SYSNAME DEFAULT SYSTEM_USER,
+ChangedDate DATETIME2 DEFAULT SYSDATETIME()
+)
 CREATE OR ALTER TRIGGER SalesTrigga
 -- =============================================
 -- =============================================
