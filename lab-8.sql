@@ -39,6 +39,23 @@ CREATE TABLE SalesLT.DeletedCustomersLog (
 HistoryID int primary key identity,
 CustomerID int,
 OrderDelDate DATETIME2 DEFAULT SYSDATETIME(),
+)
+GO
+CREATE OR ALTER TRIGGER CustomerTrigga
+ON SalesLT.Customer
+INSTEAD OF DELETE
+AS
+BEGIN
+	SET NOCOUNT ON
+	UPDATE Customer
+	SET Customer.IsDeleted = 1, Customer.ModifiedDate = SYSUTCDATETIME()
+	FROM SalesLT.Customer as Customer
+	INNER JOIN DELETED AS Del on Customer.CustomerID = Del.CustomerID
+	WHERE EXISTS (SELECT Customer.CustomerID FROM SalesLT.Customer
+
+END
+GO
+		
 
 -- =============================================
 -- =============================================
