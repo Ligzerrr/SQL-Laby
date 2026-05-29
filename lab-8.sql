@@ -7,6 +7,15 @@
 -- =============================================
 -- =============================================
 -- Zadanie 1
+CREATE TABLE SalesLT.ProductPriceHistory (
+HistoryID int identity PRIMARY KEY,
+ProductID int,
+OldLP money,
+NewLP money,
+ChangedBy SYSNAME DEFAULT SYSTEM_USER,
+ChangedDate DATETIME2 DEFAULT SYSDATETIME(),
+
+CREATE OR ALTER TRIGGER SalesTrigga
 -- =============================================
 -- =============================================
 -- Zadanie 2
