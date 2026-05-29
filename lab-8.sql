@@ -45,20 +45,20 @@ CREATE OR ALTER TRIGGER CustomerTrigga
 ON SalesLT.Customer
 INSTEAD OF DELETE
 AS
-BEGIN --Musze zrobic tutaj DELETE FROM Customer UPDATE Customer I INSERT INTO Customerslog
+BEGIN --Musze zrobic tutaj DELETE FROM Customer UPDATE Customer I INSERT INTO Customerslog inaczej nie wiem jak. If tez mozna zrobic ale tak chyba łatwiej mi to było zrobic.
 	SET NOCOUNT ON
 	INSERT INTO SalesLT.DeletedCustomersLog (CustomerID)
 	SELECT Del.CustomerID FROM deleted Del
-	WHERE EXISTS (SELECT Customer.CustomerID FROM SalesLT.Customer Customer JOIN SalesLT.SalesOrderHeader SOH on Customer.CustomerID = SOH.CustomerID)
+	WHERE EXISTS (SELECT CustomerID FROM SalesLT.SalesOrderHeader SOH Where SOH.CustomerID = Del.CustomerId)
 
 	UPDATE Customer
 	SET Customer.IsDeleted = 1, Customer.ModifiedDate = SYSUTCDATETIME()
 	FROM SalesLT.Customer as Customer
 	INNER JOIN DELETED AS Del on Customer.CustomerID = Del.CustomerID
-	WHERE EXISTS (SELECT Customer.CustomerID FROM SalesLT.Customer Customer JOIN SalesLT.SalesOrderHeader SOH on Customer.CustomerID = SOH.CustomerID)
+	WHERE EXISTS (SELECT CustomerID FROM SalesLT.SalesOrderHeader SOH Where SOH.CustomerID = Del.CustomerI) --W commitach napisalem ale mialem caly zle ten warunek. Teraz juz jest poprawnie (chyba)
 
 	DELETE FROM SalesLT.Customer
-	WHERE CustomerID IN (SELECT CustomerID FROM DELETED WHERE NOT EXISTS (SELECT Customer.CustomerID FROM SalesLT.Customer Customer JOIN SalesLT.SalesOrderHeader SOH on Customer.CustomerID = SOH.CustomerID)) 
+	WHERE CustomerID IN (SELECT CustomerID FROM DELETED Del WHERE NOT EXISTS (SELECT CustomerID FROM SalesLT.SalesOrderHeader SOH Where SOH.CustomerID = Del.CustomerID)) 
 END
 GO
 		
