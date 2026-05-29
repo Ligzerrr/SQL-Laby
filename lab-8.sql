@@ -45,7 +45,7 @@ CREATE OR ALTER TRIGGER CustomerTrigga
 ON SalesLT.Customer
 INSTEAD OF DELETE
 AS
-BEGIN
+BEGIN --Musze zrobic tutaj DELETE FROM Customer UPDATE Customer I INSERT INTO Customerslog 
 	SET NOCOUNT ON
 	UPDATE Customer
 	SET Customer.IsDeleted = 1, Customer.ModifiedDate = SYSUTCDATETIME()
