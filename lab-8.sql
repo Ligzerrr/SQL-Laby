@@ -51,8 +51,7 @@ BEGIN
 	SET Customer.IsDeleted = 1, Customer.ModifiedDate = SYSUTCDATETIME()
 	FROM SalesLT.Customer as Customer
 	INNER JOIN DELETED AS Del on Customer.CustomerID = Del.CustomerID
-	WHERE EXISTS (SELECT Customer.CustomerID FROM SalesLT.Customer
-
+	WHERE EXISTS (SELECT Customer.CustomerID FROM SalesLT.Customer JOIN SalesLT.SalesOrderHeader SOH on Customer.CustomerID = SOH.CustomerID)
 END
 GO
 		
