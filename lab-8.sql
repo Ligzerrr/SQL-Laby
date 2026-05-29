@@ -15,7 +15,17 @@ NewLP money,
 ChangedAuthor SYSNAME DEFAULT SYSTEM_USER,
 ChangedDate DATETIME2 DEFAULT SYSDATETIME()
 )
+-- Tworze od razu z create or alter bo pewnie bede musial cos zmienic
 CREATE OR ALTER TRIGGER SalesTrigga
+ON SalesLT.Product
+AFTER UPDATE
+AS
+BEGIN
+	INSERT INTO SalesLT.ProductPriceHistory(ProductID, OldLP, NewLP)
+	SELECT ins.ProductID, prdt.ListPrice as OldLP, ins.ListPrice as NewLP
+	FROM INSERTED ins
+	JOIN DELETED prdt on ins.ProductID	= prdt.ProductID
+
 -- =============================================
 -- =============================================
 -- Zadanie 2
