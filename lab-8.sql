@@ -67,17 +67,22 @@ GO
 -- =============================================
 -- Zadanie 3
 WITH PRODUCTCATEGORYTHING AS (
-	SELECT Name, 0 AS CategoryLevel
+	SELECT ParentProductCategoryID, ProductCategoryID, Name, 0 AS CategoryLevel
 	FROM SalesLT.ProductCategory
 	WHERE ParentProductCategoryID is NULL
 	UNION ALL
     
 	SELECT
-		PrdtC.
+		PrdtC.ParentProductCategoryID,
+		PrdtC.ProductCategoryID,
+		PrdtC.Name,
+		PCT.CategoryLevel + 1
+	FROM SalesLT.ProductCategory PrdtC
+	JOIN PRODUCTCATEGORYTHING PCT on PrdtC.ParentProductCategoryId = PCT.ProductCategoryID
 )
 SELECT *
 FROM ProductCategoryThing
-ORDER BY Level, Name
+ORDER BY ParentProductCategoryID, ProductCategoryID
 -- =============================================
 -- =============================================
 -- Zadanie 4
