@@ -27,7 +27,7 @@ BEGIN
 	INSERT INTO SalesLT.ProductPriceHistory(ProductID, OldLP, NewLP)
 	SELECT ins.ProductID, prdt.ListPrice as OldLP, ins.ListPrice as NewLP
 	FROM INSERTED ins
-	JOIN DELETED prdt on ins.ProductID	= prdt.ProductID
+	JOIN DELETED prdt on ins.ProductID	= prdt.ProductID --tutaj inaczej to mialem nazwac zamiast prdt mialo byc (del) ale pomylilo mi sie i juz mi sie nie chcialo zmieniac
 	WHERE ISNULL(prdt.ListPrice, -1) <> ISNULL(ins.ListPrice, -1) --Where sprawdza gdzie cena sie zmienila.
 END
 GO
@@ -48,13 +48,14 @@ AS
 BEGIN --Musze zrobic tutaj DELETE FROM Customer UPDATE Customer I INSERT INTO Customerslog
 	SET NOCOUNT ON
 	INSERT INTO SalesLT.DeletedCustomersLog (CustomerID)
-	SELECT Customer.CustomerID FROM SalesLT.Customer Customer
+	SELECT Del.CustomerID FROM deleted Del
+	WHERE EXISTS (SELECT Customer.CustomerID FROM SalesLT.Customer Customer JOIN SalesLT.SalesOrderHeader SOH on Customer.CustomerID = SOH.CustomerID)
 
 	UPDATE Customer
 	SET Customer.IsDeleted = 1, Customer.ModifiedDate = SYSUTCDATETIME()
 	FROM SalesLT.Customer as Customer
 	INNER JOIN DELETED AS Del on Customer.CustomerID = Del.CustomerID
-	WHERE EXISTS (SELECT del.CustomerID FROM DELETED JOIN SalesLT.SalesOrderHeader SOH on Customer.CustomerID = SOH.CustomerID) --mialem tutaj blad bo dalem saleslt.customer zamiast from deleted
+	WHERE EXISTS (SELECT Customer.CustomerID FROM SalesLT.Customer Customer JOIN SalesLT.SalesOrderHeader SOH on Customer.CustomerID = SOH.CustomerID) 
 END
 GO
 		
