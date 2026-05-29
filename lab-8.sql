@@ -34,6 +34,12 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 2
+--Najpierw tworze tabele DeletedCustomerLog z tresci zadani
+CREATE TABLE SalesLT.DeletedCustomersLog (
+HistoryID int primary key identity,
+CustomerID int,
+OrderDelDate DATETIME2 DEFAULT SYSDATETIME(),
+
 -- =============================================
 -- =============================================
 -- Zadanie 3
