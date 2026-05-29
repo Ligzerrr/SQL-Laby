@@ -28,7 +28,7 @@ BEGIN
 	SELECT ins.ProductID, prdt.ListPrice as OldLP, ins.ListPrice as NewLP
 	FROM INSERTED ins
 	JOIN DELETED prdt on ins.ProductID	= prdt.ProductID
-	WHERE ISNULL(prdt.ListPrice, -1) <> ISNULL(i.ListPrice, -1) --Where sprawdza gdzie cena sie zmienila.
+	WHERE ISNULL(prdt.ListPrice, -1) <> ISNULL(ins.ListPrice, -1) --Where sprawdza gdzie cena sie zmienila.
 END
 GO
 -- =============================================
