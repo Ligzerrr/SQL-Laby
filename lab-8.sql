@@ -117,6 +117,10 @@ BEGIN
 			)
 			BEGIN
 				INSERT INTO SalesLT.ProductPriceHistory (ProductID, OLDLP, NEWLP, ChangedDate)
+				SELECT Ins.ProductID, Del.ListPrice, Ins.ListPrice, GetDate()
+				FROM Inserted Ins
+				JOIN Deleted Del on Ins.ProductID = Del.ProductID
+				WHERE Ins.ListPrice > (d.ListPrice * 1.20)
 
 -- =============================================
 -- =============================================
