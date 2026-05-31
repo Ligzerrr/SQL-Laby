@@ -102,6 +102,21 @@ ORDER BY ParentProductCategoryID, ProductCategoryID
 -- =============================================
 -- =============================================
 -- Zadanie 4
+CREATE TRIGGER PriceChangeAlert
+on SalesLT.Product
+AFTER UPDATE
+AS
+BEGIN
+	if UPDATE(ListPrice) --najpierw trzeba sprawdzic czy wgl byla jakakolwiek zmiana na kolumnie
+	BEGIN
+		if exists (
+			SELECT ProductID
+			FROM inserted Ins
+			JOIN Deleted Del on Ins.ProductID = Del.ProductID
+			where Ins.ListPrice > (Del.ListPrice * 1.20)
+			)
+			BEGIN
+				INSERT INTO SalesLT.ProductPriceHistory (ProductID, OLDLP, NEWLP, ChangedDate)
 
 -- =============================================
 -- =============================================
