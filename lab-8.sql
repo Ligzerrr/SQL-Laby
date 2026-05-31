@@ -132,7 +132,27 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 5
+CREATE TABLE dbo.DatabaseAuditLog (
+	LogID int identity primary key,
+	EventTime datetime default GetDate(),
+	EventType nvarchar(100),
+	LoginName nvarchar(100),
+	ObjectName nvarchar(100),
+	CommandText nvarchar(max)
+)
+GO
 
+CREATE OR ALTER TRIGGER DatabaseAuditTrigger
+ON Database
+FOR CREATE_TABLE, ALTER_TABLE, DROP_TABLE
+AS
+BEGIN
+	SET nocount ON
+	
+	DECLARE @EVDATA XML
+	SET @EVDATA = EVENTDATA()
+
+	INSERT INTO dbo.DatabaseAuditLog (EventType
 -- =============================================
 -- =============================================
 -- Zadanie 6
