@@ -88,13 +88,13 @@ WITH PRODUCTCATEGORYTHING AS (
 	UNION ALL
 
 	SELECT
-		PrdtC.ProductCategoryID,
 		PrdtC.ParentProductCategoryID,
+		PrdtC.ProductCategoryID,
 		prdtC.Name,
 		PCT.CategoryPath + ' > ' + CAST(PrdtC.Name AS NVARCHAR(MAX)) --Tutaj musze tez dolozyc ten CAST tak podpowiada internet :)
 	FROM SalesLT.ProductCategory PrdtC
 	JOIN PRODUCTCATEGORYTHING PCT on PrdtC.ParentProductCategoryID = PCT.ProductCategoryID
-
+	
 )
 SELECT *
 FROM ProductCategoryThing
