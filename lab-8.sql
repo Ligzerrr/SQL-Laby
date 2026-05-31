@@ -81,16 +81,20 @@ WITH PRODUCTCATEGORYTHING AS (
 	FROM SalesLT.ProductCategory PrdtC
 	JOIN PRODUCTCATEGORYTHING PCT on PrdtC.ParentProductCategoryId = PCT.ProductCategoryID */
 	--Drugie to takie ze strzalkami tak jak w zadaniu.
-	SELECT ParentProductCategoryID, ProductCategoryID, Name, CategoryPath
+	SELECT ParentProductCategoryID, ProductCategoryID, Name, Name AS CategoryPath --Musze tutaj zrobić CAST as nvarchar poniewaz: Types don't match between the anchor and the recursive part in column "CategoryPath" of recursive query "PRODUCTCATEGORYTHING". 
 	FROM SalesLT.ProductCategory
 	WHERE ParentProductCategoryID is NULL
 
+	UNION ALL
 
 	SELECT
 		PrdtC.ProductCategoryID,
 		PrdtC.ParentProductCategoryID,
 		prdtC.Name,
-		PCT.CategoryPath
+		PCT.CategoryPath + ' > ' + PrdtC.Name --Tutaj musze tez dolozyc ten CAST 
+	FROM SalesLT.ProductCategory PrdtC
+	JOIN PRODUCTCATEGORYTHING PCT on PrdtC.ParentProductCategoryID = PCT.ProductCategoryID
+
 )
 SELECT *
 FROM ProductCategoryThing
