@@ -132,6 +132,7 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 5
+--Tablea do logow LogID itp itd.
 CREATE TABLE dbo.DatabaseAuditLog (
 	LogID int identity primary key,
 	EventTime datetime default GetDate(),
