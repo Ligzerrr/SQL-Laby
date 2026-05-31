@@ -94,7 +94,7 @@ WITH PRODUCTCATEGORYTHING AS (
 		PCT.CategoryPath + ' > ' + CAST(PrdtC.Name AS NVARCHAR(MAX)) --Tutaj musze tez dolozyc ten CAST tak podpowiada internet :)
 	FROM SalesLT.ProductCategory PrdtC
 	JOIN PRODUCTCATEGORYTHING PCT on PrdtC.ParentProductCategoryID = PCT.ProductCategoryID
-	
+	--Nie wiem dlaczego ale wynik wszystkiego mi sie wyswietla tylko jako np. "Bikes > Mountain Bikes" a Mountain Frames sa podpiete pod Komponenty ? nie wiem jak to naprawic.
 )
 SELECT *
 FROM ProductCategoryThing
