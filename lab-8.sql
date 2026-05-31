@@ -152,7 +152,12 @@ BEGIN
 	DECLARE @EVDATA XML
 	SET @EVDATA = EVENTDATA()
 
-	INSERT INTO dbo.DatabaseAuditLog (EventType
+	INSERT INTO dbo.DatabaseAuditLog (EventType, LoginName, ObjectName, CommandText)
+	values ( @EVDATA.value('(/EVENT_INSTANCE/EventType)[1]', 'nvarchar(100)'), @EVDATA.value('(/EVENT_INSTANCE/LoginName)[1]', 'nvarchar(100)'), @EVDATA.value('(/EVENT_INSTANCE/ObjectName)[1]', 'nvarchar(100)'),
+	@EVDATA.value('(/EVENT_INSTANCE/TSQLCommand/CommandText)[1]', 'nvarchar(100)'))
+END
+GO
+			
 -- =============================================
 -- =============================================
 -- Zadanie 6
