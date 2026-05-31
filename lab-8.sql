@@ -150,7 +150,7 @@ BEGIN
 	SET nocount ON
 	
 	DECLARE @EVDATA XML
-	SET @EVDATA = EVENTDATA()
+	SET @EVDATA = EVENTDATA() --za pomoca EVENTDATA() w DDL mozna zwrocic informacje dotyczace ewentow w bazie danych
 
 	INSERT INTO dbo.DatabaseAuditLog (EventType, LoginName, ObjectName, CommandText)
 	values ( @EVDATA.value('(/EVENT_INSTANCE/EventType)[1]', 'nvarchar(100)'), @EVDATA.value('(/EVENT_INSTANCE/LoginName)[1]', 'nvarchar(100)'), @EVDATA.value('(/EVENT_INSTANCE/ObjectName)[1]', 'nvarchar(100)'),
