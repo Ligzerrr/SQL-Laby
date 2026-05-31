@@ -121,7 +121,7 @@ BEGIN
 				SELECT Ins.ProductID, Del.ListPrice, Ins.ListPrice, GetDate()
 				FROM Inserted Ins
 				JOIN Deleted Del on Ins.ProductID = Del.ProductID
-				WHERE Ins.ListPrice > (d.ListPrice * 1.20)
+				WHERE Ins.ListPrice > (Del.ListPrice * 1.20)
 
 				ROLLBACK tran
 			END
@@ -132,6 +132,7 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 5
+
 -- =============================================
 -- =============================================
 -- Zadanie 6
