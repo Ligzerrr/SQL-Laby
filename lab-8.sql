@@ -67,18 +67,30 @@ GO
 -- =============================================
 -- Zadanie 3
 WITH PRODUCTCATEGORYTHING AS (
-	SELECT ParentProductCategoryID, ProductCategoryID, Name, 0 AS CategoryLevel
+	/* SELECT ParentProductCategoryID, ProductCategoryID, Name, 0 AS CategoryLevel
 	FROM SalesLT.ProductCategory
 	WHERE ParentProductCategoryID is NULL
-	UNION ALL
-    
-	SELECT
+	UNION ALL */
+    --Mam tutaj dwa zastosowania, poniewaz nie dokladnie zrozumialem tresc zadania.
+	--Pierwsze to zwyczajne wypisanie wszystkiego (tak jak jest ponizej oraz powyzej w zakomentarozwane)
+	/* SELECT
 		PrdtC.ParentProductCategoryID,
 		PrdtC.ProductCategoryID,
 		PrdtC.Name,
 		PCT.CategoryLevel + 1
 	FROM SalesLT.ProductCategory PrdtC
-	JOIN PRODUCTCATEGORYTHING PCT on PrdtC.ParentProductCategoryId = PCT.ProductCategoryID
+	JOIN PRODUCTCATEGORYTHING PCT on PrdtC.ParentProductCategoryId = PCT.ProductCategoryID */
+	--Drugie to takie ze strzalkami tak jak w zadaniu.
+	SELECT ParentProductCategoryID, ProductCategoryID, Name, CategoryPath
+	FROM SalesLT.ProductCategory
+	WHERE ParentProductCategoryID is NULL
+
+
+	SELECT
+		PrdtC.ProductCategoryID,
+		PrdtC.ParentProductCategoryID,
+		prdtC.Name,
+		PCT.CategoryPath
 )
 SELECT *
 FROM ProductCategoryThing
@@ -86,6 +98,7 @@ ORDER BY ParentProductCategoryID, ProductCategoryID
 -- =============================================
 -- =============================================
 -- Zadanie 4
+
 -- =============================================
 -- =============================================
 -- Zadanie 5
