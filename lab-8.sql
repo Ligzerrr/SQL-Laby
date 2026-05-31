@@ -99,6 +99,7 @@ WITH PRODUCTCATEGORYTHING AS (
 SELECT *
 FROM ProductCategoryThing
 ORDER BY ParentProductCategoryID, ProductCategoryID
+GO
 -- =============================================
 -- =============================================
 -- Zadanie 4
@@ -121,6 +122,12 @@ BEGIN
 				FROM Inserted Ins
 				JOIN Deleted Del on Ins.ProductID = Del.ProductID
 				WHERE Ins.ListPrice > (d.ListPrice * 1.20)
+
+				ROLLBACK tran
+			END
+	END
+END
+GO
 
 -- =============================================
 -- =============================================
