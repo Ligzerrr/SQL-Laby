@@ -162,4 +162,10 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 6
+CREATE TABLE SalesLT.Employees (
+	EmployeeID int identity primary key,
+	Name nvarchar(25),
+	LastName nvarchar(25),
+	Department nvarchar(25),
+
 -- =============================================
