@@ -99,6 +99,7 @@ BEGIN
 
 	RETURN @json
 END
+GO
 --Podczas pracy z sqlem to mi sie wyswietlilo i juz sie nie chce naprawic od pewnego momentu. Nie mam jak sprawdzic czy dziala wszystko ale mam nadzieje ze mi sie udalo.
 	--Msg 0, Level 20, State 0, Line 83
     --The connection is broken and recovery is not possible.  The connection is marked by the server as unrecoverable.  No attempt was made to restore the connection.
@@ -107,16 +108,24 @@ END
 -- Zadanie 4
 CREATE FUNCTION Student_4.ufn_IsPriceHigherThanCurrent
 (
-	@ProductID int,
-	@ListPrice decimal(10,2),
-	@Name nvarchar(50)
+	@json nvarchar(max)
 )
 	RETURNS bit --bit dziala jak bool 1 albo 0 true or false
 AS
 BEGIN
+	DECLARE @BOOLSOMETHING BIT
+	DECLARE @HELP DECIMAL(10,2)
+	SET @HELP = (SELECT ListPrice FROM SalesLT.Product WHERE JSON_VALUE(@json, '$.something.id') = ProductID)
+	IF JSON_VALUE(@json, '$.something.price') > @HELP --nie wiem o jaki dokument chodzi wiec nie wiem jaka bedzie sciezka!!!! Wystarczy zmienic sciezke i tyle.
+		SET @BOOLSOMETHING = 1
+	ELSE IF JSON_VALUE(@json, '$.something.price') < @HELP --albo samo else i jakby cena byla rowna to po prostu by wykonalo sie ELSE . ale z ELSE IF cos by sie stalo z bitem. Czego nie wiem (dalej nie działa mi connection :) )
+		SET @BOOLSOMETHING = 0
+	RETURN @BOOLSOMETHING
+END
 -- =============================================
 -- =============================================
 -- Zadanie 5
+
 -- =============================================
 -- =============================================
 -- Zadanie 6
