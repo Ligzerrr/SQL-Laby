@@ -162,10 +162,32 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 6
-CREATE TABLE SalesLT.Employees (
-	EmployeeID int identity primary key,
-	Name nvarchar(25),
-	LastName nvarchar(25),
-	Department nvarchar(25),
+--Tabela z recenzjami vendorów 
+CREATE TABLE SalesLT.VendorReviewsStuff (
+	ReviewID int identity primary key,
+	VendorID int,
+	ReviewerName nvarchar(25),
+	Comment nvarchar(max),
+	Rating tinyint
+	--Nie miałem czasu na stworzenie duzej ilosci fikcyjnych danych ale to napewno działa poprawnie mozna by jeszcze do tej tabeli dodac productid itp itd zeby poglebic to
+	--ale niestety tak jak juz wspominalem brak czasu mi na takie rzeczy nie pozwolil mam nadzieje ze zadanie jest poprawnie wykonane :)
+	Constraint FK_VendorID foreign key (VendorID) references SalesLT.Vendor
+	)
+	GO
+
+	INSERT INTO SalesLT.VendorReviewsStuff(VendorID, Comment, Rating)
+	VALUES(40, 'Hell no', 1),(40, 'Product came damaged', 0),(40, 'Please speed i need this', 5),(3, 'never again', 0)
+	--Uzylem CTE zeby zrobic AVG rating vendora i wyswietlic tylko tych co maja > 3 (w selectcie poza cte)
+	GO
+	WITH Something_Employees AS (
+		SELECT VEN.VendorID, AVG(VPR.Rating) as AVGRating
+		FROM SalesLT.Vendor VEN
+		JOIN SalesLT.VendorReviewsStuff VPR on VEN.VendorID = VPR.VendorID
+		GROUP BY VEN.VendorID
+		)
+	
+	SELECT *
+	FROM Something_Employees
+	WHERE AVGRating > 3
 
 -- =============================================
