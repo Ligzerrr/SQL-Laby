@@ -135,11 +135,84 @@ RETURN
 	SELECT ProductID, ListPrice, Student_4.ufn_IsPriceHigherThanCurrent((SELECT ProductID, Name, ListPrice FOR JSON PATH)) as FunctionThing FROM SalesLT.Product
 )
 
-	
+GO
 -- =============================================
 -- =============================================
 -- Zadanie 6
+
+--iVTF:
+/*
+iVTF sa najczesciej potrzebny gdy zwykly widok nie bedzie wystarczajacy (znacznie szybsze przy ogromnej ilosci danych). Dodatkowo pozwalaja na wlasne parametry zamiast kombinowania przy widokach
+Jesli np. jest jakas Tabela ktora ma 300000 rekordów np. sprzedaże dużego biznesu lub jakieś logi iVTF będzie o wiele lepszym sposobem niż widok.
+*/
+CREATE FUNCTION Business.SalesShow --Mozna dodac tutaj parametry ktore przydadza sie do obliczen dla danego biznesu.
+()
+RETURNS TABLE
+AS
+RETURN
+( 
+	SELECT Info, Price, Tax, Name, Product FROM Business.Sales
+)
+
+GO
+
+/*
+mVTF powinny byc tylko stosowane do ciezszych obliczen oraz przy IF (iVTF nie przyjmuje ifow)
+ma bardzo duzo minusow: w przeciwienstwie do iVTF sa koszmarne w wydajnosci. 
+Przykladem moze byc np. Biznes potrzebuje obliczenia jakiegos DYNAMICZNEGO rabatu dla cen, lub podmian (ktore sa potrzebne w wielu miejsach kodu), ktore ciezko wykonac bez zastosowania funkcji.
+*/
+CREATE FUNCTION Business.SalesCalculations
+()
+RETURNS @Table Table
+(
+	ProductName nvarchar(50),
+	PriceOG money,
+	PriceFINAL money,
+	IsDiscount BIT
+)
+AS
+BEGIN
+	INSERT INTO @Table
+	SELECT ProductName, Price, Price * 0.50, 1
+	FROM Business.Shoes
+	WHERE ProductName LIKE 'Balenciaga'
+
+	INSERT INTO @Table
+	SELECT ProductName, Price, Price, 0
+	FROM Business.Shoes
+	WHERE ProductName NOT LIKE 'Balenciaga'
+	RETURN
+END
+GO
+/*
+Widoki są bardzo podobne do iVFTów z małą różnicą. Widoki są łatwiejsze i wygodniejsze do stworzenia (chociaż to i tak nie jest taka wielka roznica).
+Jeśli nie uwzgledniamy uzytecznosci parametrow to widoki z głębsza są popularniejszą opcją jeśli chodzi o tworzenie tych uproszczonych zapytań oraz zabezpieczenia danych.
+ALE! Widoki są mniej wydajne niż iVFTy gdy mamy do czynienia z dużą ilością danych.
+Przykładem jest np. w bazie danych istnieje tabela z PESEL za pomocą widoku można łatwo się pozbyć niebezpieczeństwa związanego z tym.
+*/
+--Tutaj istnieje jakas fikcyjna tabelka która ma PESEL oraz inne dane.
+CREATE VIEW Business.EmployeesSafeVer AS
+SELECT LastName, Name, DateOfEmployment
+FROM Business.Employees
+GO
+--Za pomocą GRANT SELECT ON VIEW TO USER niweluje sie potrzebe uzywania oryginalnej tabeli
+/*
+Funkcje skalarne mają totalnie inne zastosowanie niż poprzednie rozwiazania.
+Maja niska wydajnosc, przyjmuja parametry, pozwala na IF.
+W przykladzie: sa fantastyczne do formatowania danych lub obliczenia stalych danych albo walidacji danych.
+*/
+CREATE FUNCTION Business.CalcVat
+(
+	@Price money
+)
+RETURNS MONEY
+AS
+BEGIN 
+	RETURN @Price * 0.23
+END
+GO
 -- =============================================
 -- =============================================
 -- Zadanie 7
+dbo.fn_GetCustomerCreditRisk(
 -- =============================================
