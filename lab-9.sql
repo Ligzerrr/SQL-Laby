@@ -1,4 +1,4 @@
-﻿-- =============================================
+﻿-- ===========================================
 -- Piotr
 -- Popiel
 -- 240164
@@ -24,17 +24,96 @@ BEGIN
 		ORDER BY FirstName
 		RETURN @BestLastName
 END
-
+GO
 -- =============================================
 -- =============================================
 -- Zadanie 2
+--Mam tutaj dwie opcje do ktorych muszę się przyznać:
+/*
+Msg 2772, Level 16, State 1, Procedure ufn_CalcAdjustedPrice, Line 20 [Batch Start Line 41]
+Cannot access temporary tables from within a function.
+Nie da sie przekazac #Tabeli do Funkcji tabelarycznej.
+Czyli moge zostawic tak jak jest bo czysto teoretycznie to by zadzialalo gdyby T-sql przyjmowalby faktycznie te #tabele.
 
+OPCJA DRUGA:
+Uzyć AI ale tak jak juz było wspominane AI jest niedozwolone, niby istnieje stack i dałoby sie to rozwiazac
+ale w sumie nie uzywaloby to wtedy prawdziwej #Tabeli, więc zostawiam tak jak jest.
+Jesli będzie potrzeba to moge sprobowac oddac zadanie znowu z rozwiazaniem tego problemu.
+:-)
+
+
+*/
+Create Table #TopProducts (
+	ID INT PRIMARY KEY,
+	Name NVARCHAR(50),
+	Price DECIMAL(10,2)
+	)
+INSERT INTO #TopProducts
+SELECT TOP 25 ProductID, Name, ListPrice
+FROM SalesLT.Product
+WHERE ListPrice > 1.05 * StandardCost AND ListPrice < 1.20 * StandardCost
+
+GO
+
+CREATE FUNCTION Student_4.ufn_CalcAdjustedPrice
+(
+	@SID int,
+	@SNAME nvarchar(50),
+	@SPRICE decimal(10,2)
+)
+Returns @Summary Table
+(
+	ProductID int,
+	Name nvarchar(50),
+	ListPrice decimal(10,2),
+	NewPrice decimal(10,2)
+)
+AS
+BEGIN
+	INSERT INTO @Summary
+	SELECT ID, Name, Price, Price - (Price * 0.05)
+	FROM #TopProducts
+	RETURN
+END
+GO
+
+	
 -- =============================================
 -- =============================================
 -- Zadanie 3
+CREATE FUNCTION Student_4.ufn_ProductsJsonByCategory
+(
+	@CategoryName NVARCHAR(50)  --Chyba dobrze zrozumialem to zadanie? Nie wiem czy mam ustawic ten parametr czy nie.
+)
+	Returns nvarchar(max)
+AS
+BEGIN
+	DECLARE @json nvarchar(max) --deklaruje jsona ustawiam go za pomoca SET i robie FOR JSON path zeby dostac wynik w json
+	SET @json = (
+	SELECT PRDT.ProductID, PRDT.Name, PRDT.ListPrice, CTG.Name
+	FROM SalesLT.Product PRDT
+	JOIN SalesLT.ProductCategory CTG on PRDT.ProductCategoryID = CTG.ProductCategoryID
+	WHERE CTG.Name = @CategoryName
+	FOR JSON PATH
+	)
+
+	RETURN @json
+END
+--Podczas pracy z sqlem to mi sie wyswietlilo i juz sie nie chce naprawic od pewnego momentu. Nie mam jak sprawdzic czy dziala wszystko ale mam nadzieje ze mi sie udalo.
+	--Msg 0, Level 20, State 0, Line 83
+    --The connection is broken and recovery is not possible.  The connection is marked by the server as unrecoverable.  No attempt was made to restore the connection.
 -- =============================================
 -- =============================================
 -- Zadanie 4
+CREATE FUNCTION Student_4.ufn_IsPriceHigherThanCurrent
+(
+	@ProductID int,
+	@ListPrice decimal(10,2),
+	@Name nvarchar(50)
+)
+	RETURNS bit --bit dziala jak bool 1 albo 0 true or false
+AS
+BEGIN
 -- =============================================
 -- =============================================
 -- Zadanie 5
