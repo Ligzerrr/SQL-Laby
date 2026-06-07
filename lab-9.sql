@@ -57,9 +57,9 @@ GO
 
 CREATE FUNCTION Student_4.ufn_CalcAdjustedPrice
 (
-	@SID int,
+	/*(@SID int,
 	@SNAME nvarchar(50),
-	@SPRICE decimal(10,2)
+	@SPRICE decimal(10,2)*/ --ta czesc nie jest potrzebna chyba
 )
 Returns @Summary Table
 (
@@ -122,10 +122,20 @@ BEGIN
 		SET @BOOLSOMETHING = 0
 	RETURN @BOOLSOMETHING
 END
+GO
 -- =============================================
 -- =============================================
 -- Zadanie 5
+-- Z uwagi na to, że nie potrafie naprawic bledu z not connected(??? nie wiem czemu) nie mam jak zbytnio przetestowac tego zadania. mam nadzieje ze dobrze.
+CREATE FUNCTION Student_4.NameSomething()
+RETURNS Table
+AS
+RETURN
+(
+	SELECT ProductID, ListPrice, Student_4.ufn_IsPriceHigherThanCurrent((SELECT ProductID, Name, ListPrice FOR JSON PATH)) as FunctionThing FROM SalesLT.Product
+)
 
+	
 -- =============================================
 -- =============================================
 -- Zadanie 6
