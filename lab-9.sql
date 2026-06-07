@@ -214,5 +214,28 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 7
-dbo.fn_GetCustomerCreditRisk(
+
+CREATE FUNCTION dbo.fn_GetCustomerCreditRisk
+(
+	@CustomerID int
+)
+RETURNS nvarchar(10)
+AS
+BEGIN
+	DECLARE @Orders Table(
+		Order_SUM DECIMAL(10,2),
+		ISLate_Orders bit
+	)
+	INSERT INTO @Orders
+	SELECT TotalDue, CASE WHEN DATEDIFF(day, DueDate, ShipDate) > 3 THEN 1 ELSE 0 END --Uzylem case zeby zrobic to sprawdzenie
+	FROM SalesLT.SalesOrderHeader
+	WHERE CustomerID = @CustomerID
+	IF (SELECT Sum(Order_SUM) FROM @Orders) > 100000 AND (SELECT Sum(ISLate_Orders) FROM @Orders) >= 2
+		RETURN 'HIGH'
+	ELSE IF (SELECT SUM(Order_SUM) FROM @Orders) > 50000
+		RETURN 'MEDIUM'
+	ELSE
+		RETURN 'LOW'
+	RETURN '?'
+END
 -- =============================================
