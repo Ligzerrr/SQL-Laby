@@ -7,8 +7,8 @@
 -- =============================================
 -- =============================================
 -- Zadanie 1
-SELECT MIN(PRDT.ListPrice) as MINLP, MAX(PRDT.ListPrice), CTG.CategoryName, Count(*) OVER (Partition by P.ProductCategoryID) as [Volume]
-
+SELECT CTG.CategoryName, MIN(PRDT.ListPrice) OVER (Partition By ProductCategoryID) as MINLP, MAX(PRDT.ListPrice) OVER (Partition By P.ProductCategoryID) as MAXLP, Count(*) OVER (Partition by P.ProductCategoryID) as VOL
+FROM SalesLT.Product
 
 -- =============================================
 -- =============================================
