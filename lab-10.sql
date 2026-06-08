@@ -109,5 +109,9 @@ END
 -- =============================================
 -- =============================================
 -- Zadanie 5
+--Od razu pisze ze zgaduje co tu sie wydarzy z uwagi na moje warunki:
+--Tabela tymczasowa zapewne nie przepusci mnie w Procedurze, tak samo jak przy funkcji itp.
+--Ale dalej rozpisze zadanie.
+CREATE TABLE #TopProducts
 
 -- =============================================
