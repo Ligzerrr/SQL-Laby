@@ -39,8 +39,8 @@ BEGIN
 	SELECT FirstName, LastName, CustomerID, EmailAddress
 	FROM [240164].Customer
 	WHERE (@FNAME = FirstName OR @FNAME = Null) AND (@LNAME = LastName OR @LNAME = Null) AND
-	(@CID = 
-
+	(@CID = CustomerID OR @CID = Null) AND (@EmailAddress = EmailAddress OR @EmailAddress = NULL)
+END
 
 -- =============================================
 -- =============================================
