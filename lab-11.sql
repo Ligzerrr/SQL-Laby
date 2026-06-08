@@ -7,7 +7,8 @@
 -- =============================================
 -- =============================================
 -- Zadanie 1
-SELECT MIN(PRDT.ListPrice) as MINLP, MAX(PRDT.ListPrice), CTG.CategoryName, Count(PRDT.
+SELECT MIN(PRDT.ListPrice) as MINLP, MAX(PRDT.ListPrice), CTG.CategoryName, Count(*) OVER (Partition by P.ProductCategoryID) as [Volume]
+
 
 -- =============================================
 -- =============================================
