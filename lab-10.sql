@@ -63,8 +63,8 @@ BEGIN
 			SET LastName = @LNAME, EmailAddress = @EADRS, Phone = @PHONE
 			WHERE CustomerID = @IDC
 		ELSE
-			DECLARE @MESSAGE nvarchar(100) = 'Parameter 
-
+			DECLARE @MESSAGE nvarchar(100) = 'Parameter: ' + CAST(@IDC AS NVARCHAR(5)) + ' does not match an existing record within the table!'
+END
 -- =============================================
 -- =============================================
 -- Zadanie 4
