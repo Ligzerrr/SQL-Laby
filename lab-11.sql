@@ -62,6 +62,25 @@ PIVOT
 	SUM(RVN)
 	FOR QRT IN ([Q1], [Q2], [Q3], [Q4])
 ) AS PVT
+
+SELECT BName, QRT, RVN
+FROM
+(
+	SELECT BName, [Q1], [Q2], [Q3], [Q4]
+	FROM
+	(
+		SELECT QRT, RVN, BName From #ClothingSales
+	) AS SRC
+	PIVOT
+	(
+		SUM(RVN) FOR QRT IN ([Q1], [Q2], [Q3], [Q4])
+	) AS PVT
+) AS PVTRSL
+UNPIVOT
+(
+	RVN FOR QRT IN ([Q1], [Q2], [Q3], [Q4])
+) AS UnpivotRSL
+
 -- =============================================
 -- =============================================
 -- Zadanie 4
