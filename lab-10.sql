@@ -82,6 +82,17 @@ CREATE OR ALTER PROCEDURE dbo.AddNewProduct
 	@UPrice money,
 	@VOL int
 AS
+BEGIN
+	IF (@VOL < 0) OR (@UPRICE > 0)
+		THROW 50002, 'Data validation failed! Check the data you have entered and try again.', 1
+		END
+	SET NOCOUNT ON
+	SET XACT_ABORT ON
+	BEGIN TRY
+		BEGIN TRAN
+			INSERT INTO SalesLT.Product(Name, CategoryName, ListPrice)
+
+
 
 
 -- =============================================
