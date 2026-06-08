@@ -109,7 +109,7 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 5
-
+--Tabela #TopProducts z 9 ale wzialem zamiast 25, 15 produktow.
 Create Table #TopProducts (
 	ID INT PRIMARY KEY,
 	Name NVARCHAR(50),
@@ -125,12 +125,18 @@ GO
 CREATE OR ALTER PROCEDURE dbo.UpdatePAfterD
 AS
 BEGIN
+	DECLARE @id int --Id do kursora
 	SET NOCOUNT ON
 	SET XACT_ABORT ON
 
 	DECLARE CURSOR_SOMETHING CURSOR FOR
 	SELECT ID
 	FROM #TopProducts
+	ORDER BY ProductID
+
+	OPEN CURSOR_SOMETHING
+
+	FETCH NEXT FROM CURSOR_SOMETHING 
 
 	
 
