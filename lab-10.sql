@@ -48,6 +48,7 @@ GO
 -- =============================================
 -- Zadanie 3
 --Podobny poczatek do zad2, ale raczej najczesciej zmienane sa naziwska, emaile oraz numery telefonu.
+--Zrobie tutaj fajny komunikat za pomoca zmiennej @message
 CREATE OR ALTER PROCEDURE dbo.UpdateCustomer
 	@IDC int,
 	@LNAME P4_surname,
@@ -57,17 +58,13 @@ AS
 BEGIN
 	SET NOCOUNT ON
 	SET XACT_ABORT ON
+		IF EXISTS (SELECT 1 FROM SalesLT.Customer WHERE CustomerID = @IDC)
+			UPDATE SalesLT.Customer
+			SET LastName = @LNAME, EmailAddress = @EADRS, Phone = @PHONE
+			WHERE CustomerID = @IDC
+		ELSE
+			DECLARE @MESSAGE nvarchar(100) = 'Parameter 
 
-	BEGIN TRY
-		
-		UPDATE SalesLT.Customer
-		SET LastName = @LNAME, EmailAddress = @EADRS, Phone = @PHONE
-		WHERE CustomerID = @IDC
-
-	END TRY
-	BEGIN CATCH
-
-		
 -- =============================================
 -- =============================================
 -- Zadanie 4
