@@ -116,7 +116,7 @@ Create Table #TopProducts (
 	Price DECIMAL(10,2)
 	)
 INSERT INTO #TopProducts
-SELECT TOP 25 ProductID, Name, ListPrice
+SELECT TOP 15 ProductID, Name, ListPrice
 FROM SalesLT.Product
 WHERE ListPrice > 1.05 * StandardCost AND ListPrice < 1.20 * StandardCost
 
