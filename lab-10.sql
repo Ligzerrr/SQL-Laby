@@ -92,9 +92,11 @@ BEGIN
 		BEGIN TRAN
 			INSERT INTO SalesLT.Product(Name, CategoryName, ListPrice)
 			VALUES (@PName, @CName, @UPrice)
-
+			DECLARE @NID INT = (SELECT TOP 1 CategoryID FROM SalesLT.Product ORDER BY CATEGORYID DESC)
 			INSERT INTO SalesLT.ProductInventory
-
+			VALUES(@NID, @Vol)
+		COMMIT TRAN 
+	END TRY
 
 
 
