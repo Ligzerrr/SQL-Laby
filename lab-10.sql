@@ -138,6 +138,12 @@ BEGIN
 
 	FETCH NEXT FROM CURSOR_SOMETHING INTO @id
 	WHILE @@FETCH_STATUS = 0
+	BEGIN
+		IF EXISTS (SELECT ProductID FROM SalesLT.Product WHERE ProductID = @ID)
+			EXEC dbo.UpdatePrices @IDPROD = @ID
+		ELSE 
+			EXEC 
+
 	
 
 
