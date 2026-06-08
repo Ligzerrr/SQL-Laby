@@ -120,9 +120,19 @@ SELECT TOP 15 ProductID, Name, ListPrice
 FROM SalesLT.Product
 WHERE ListPrice > 1.05 * StandardCost AND ListPrice < 1.20 * StandardCost
 
+GO
+
 CREATE OR ALTER PROCEDURE dbo.UpdatePAfterD
 AS
 BEGIN
+	SET NOCOUNT ON
+	SET XACT_ABORT ON
+
+	DECLARE CURSOR_SOMETHING CURSOR FOR
+	SELECT ID
+	FROM #TopProducts
+
+	
 
 
 -- =============================================
