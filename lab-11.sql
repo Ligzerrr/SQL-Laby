@@ -30,6 +30,9 @@ VALUES
 ('Maison Margiela', 'Footwear', 'Q2', 11000.00),
 ('Maison Margiela', 'Clothing', 'Q1', 6500.00),
 ('Maison Margiela', 'Clothing', 'Q2', 5000.00);
+
+
+
 -- =============================================
 -- =============================================
 -- Zadanie 3
