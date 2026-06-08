@@ -105,13 +105,19 @@ BEGIN
 		THROW @ENUM, @EMSG, 1
 	END CATCH
 END
-
+GO
 -- =============================================
 -- =============================================
 -- Zadanie 5
---Od razu pisze ze zgaduje co tu sie wydarzy z uwagi na moje warunki:
---Tabela tymczasowa zapewne nie przepusci mnie w Procedurze, tak samo jak przy funkcji itp.
---Ale dalej rozpisze zadanie.
-CREATE TABLE #TopProducts
+
+Create Table #TopProducts (
+	ID INT PRIMARY KEY,
+	Name NVARCHAR(50),
+	Price DECIMAL(10,2)
+	)
+INSERT INTO #TopProducts
+SELECT TOP 25 ProductID, Name, ListPrice
+FROM SalesLT.Product
+WHERE ListPrice > 1.05 * StandardCost AND ListPrice < 1.20 * StandardCost
 
 -- =============================================
