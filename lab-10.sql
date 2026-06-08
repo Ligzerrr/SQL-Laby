@@ -109,11 +109,13 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 5
---Tabela #TopProducts z 9 ale wzialem zamiast 25, 15 produktow.
+--Tabela #TopProducts z 9 ale wzialem zamiast 25, 15 produktow. I musialem w pewnym momencie dodac CategoryName oraz Volume bo nie byloby skad wziac tych rzeczy do exec procedury.
 Create Table #TopProducts (
 	ID INT PRIMARY KEY,
 	Name NVARCHAR(50),
-	Price DECIMAL(10,2)
+	Price DECIMAL(10,2),
+	CategoryName Nvarchar(50),
+	Volume INT
 	)
 INSERT INTO #TopProducts
 SELECT TOP 15 ProductID, Name, ListPrice
@@ -142,7 +144,7 @@ BEGIN
 		IF EXISTS (SELECT ProductID FROM SalesLT.Product WHERE ProductID = @ID)
 			EXEC dbo.UpdatePrices @IDPROD = @ID
 		ELSE 
-			EXEC 
+			EXEC dbo.AddNewProduct (SELECT 
 
 	
 
