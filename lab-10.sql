@@ -75,7 +75,7 @@ CREATE Table SalesLT.ProductInventory(
 
 	CONSTRAINT PID Foreign Key(ProductID) references SalesLT.Product(ProductID)
 )
-
+GO
 CREATE OR ALTER PROCEDURE dbo.AddNewProduct
 	@PName name,
 	@CName name,
@@ -97,6 +97,14 @@ BEGIN
 			VALUES(@NID, @Vol)
 		COMMIT TRAN 
 	END TRY
+	BEGIN CATCH
+		IF XACT_STATE() <> 0
+			ROLLBACK TRAN
+		DECLARE @EMSG Nvarchar(5000) = ERROR_MESSAGE()
+		DECLARE @ENUM INT = ERROR_NUMBER();
+		THROW @ErrNum, @ErrMsg, 1
+	END CATCH
+END
 
 
 
