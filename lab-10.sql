@@ -83,16 +83,16 @@ CREATE OR ALTER PROCEDURE dbo.AddNewProduct
 	@VOL int
 AS
 BEGIN
-	IF (@VOL < 0) OR (@UPRICE > 0)
-		THROW 50002, 'Data validation failed! Check the data you have entered and try again.', 1
-		END
+	DECLARE @NID INT
+	IF (@VOL < 0) OR (@UPRICE <= 0)
+		THROW 50002, 'Data validation failed! Check the data you have entered and try again.', 1 --IF sprawdz mi tutaj jedno z wymagan zadania. (THROW zostanie wykonane jesli cena jest ponizej lub rowna 0 albo wolumen jest < 0)
 	SET NOCOUNT ON
 	SET XACT_ABORT ON
 	BEGIN TRY
 		BEGIN TRAN
 			INSERT INTO SalesLT.Product(Name, CategoryName, ListPrice)
 			VALUES (@PName, @CName, @UPrice)
-			DECLARE @NID INT = (SELECT TOP 1 CategoryID FROM SalesLT.Product ORDER BY CATEGORYID DESC)
+			SET @NID = SCOPE_IDENTITY() --Najlepszy sposob na zdobycie ID nowego produktu, chcialem na poczatku zrobic przez SELECT DESC ale jakby ktos zmienil cos w trakcie to wywaliloby sie wszystko. (Szukalem w internecie)
 			INSERT INTO SalesLT.ProductInventory
 			VALUES(@NID, @Vol)
 		COMMIT TRAN 
@@ -102,7 +102,7 @@ BEGIN
 			ROLLBACK TRAN
 		DECLARE @EMSG Nvarchar(5000) = ERROR_MESSAGE()
 		DECLARE @ENUM INT = ERROR_NUMBER();
-		THROW @ErrNum, @ErrMsg, 1
+		THROW @ENUM, @EMSG, 1
 	END CATCH
 END
 
