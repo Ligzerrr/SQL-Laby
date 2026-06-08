@@ -61,7 +61,12 @@ BEGIN
 	BEGIN TRY
 		
 		UPDATE SalesLT.Customer
-		SET LastName = @LNAME, EmailAddress = @EADRS, Phone
+		SET LastName = @LNAME, EmailAddress = @EADRS, Phone = @PHONE
+		WHERE CustomerID = @IDC
+
+	END TRY
+	BEGIN CATCH
+
 		
 -- =============================================
 -- =============================================
