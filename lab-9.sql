@@ -224,7 +224,7 @@ AS
 BEGIN
 	DECLARE @Orders Table(
 		Order_SUM DECIMAL(10,2),
-		ISLate_Orders bit
+		ISLate_Orders int
 	)
 	INSERT INTO @Orders
 	SELECT TotalDue, CASE WHEN DATEDIFF(day, DueDate, ShipDate) > 3 THEN 1 ELSE 0 END --Uzylem case zeby zrobic to sprawdzenie
