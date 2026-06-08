@@ -83,7 +83,7 @@ CREATE OR ALTER PROCEDURE dbo.AddNewProduct
 	@VOL int
 AS
 BEGIN
-	DECLARE @NID INT
+	DECLARE @NID INT --na poczatku mialem declare w tranzakcji ale przypomnialo mi sie ze nie mozna tak robic. dlatego na samym poczatku zadeklarowalem.
 	IF (@VOL < 0) OR (@UPRICE <= 0)
 		THROW 50002, 'Data validation failed! Check the data you have entered and try again.', 1 --IF sprawdz mi tutaj jedno z wymagan zadania. (THROW zostanie wykonane jesli cena jest ponizej lub rowna 0 albo wolumen jest < 0)
 	SET NOCOUNT ON
