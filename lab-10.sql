@@ -120,4 +120,9 @@ SELECT TOP 25 ProductID, Name, ListPrice
 FROM SalesLT.Product
 WHERE ListPrice > 1.05 * StandardCost AND ListPrice < 1.20 * StandardCost
 
+CREATE OR ALTER PROCEDURE dbo.UpdatePAfterD
+AS
+BEGIN
+
+
 -- =============================================
