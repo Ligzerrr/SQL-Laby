@@ -85,6 +85,11 @@ UNPIVOT
 -- =============================================
 -- Zadanie 4
 --Nie mialem tutaj innego pomyslu oprocz uzycia ROLLUP
+--Pokazuje to ile zarabiaja konkretne kategorie dla biznesu. Pozwala to okreslic gdzie marketing jest bardziej potrzebny.
+SELECT BName, CAT, SUM(RVN) AS TOTAL_RVN
+FROM #ClothingSales
+GROUP BY ROLLUP (BName, CAT)
+
 SELECT BName, CAT, SUM(RVN) AS TOTAL_RVN
 FROM #ClothingSales
 GROUP BY ROLLUP (BName, CAT)
