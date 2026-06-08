@@ -122,6 +122,9 @@ SELECT TOP 15 ProductID, Name, ListPrice, CategoryName, 50
 FROM SalesLT.Product
 WHERE ListPrice > 1.05 * StandardCost AND ListPrice < 1.20 * StandardCost
 
+
+INSERT INTO #TopProducts
+VALUES (3232, 'Balenciaga', 4330, 'Footwear', 4000)
 GO
 
 CREATE OR ALTER PROCEDURE dbo.UpdatePAfterD
@@ -145,10 +148,12 @@ BEGIN
 			EXEC dbo.UpdatePrices @IDPROD = @ID, @NEWLPRICE = @Price
 		ELSE 
 			EXEC dbo.AddNewProduct @PName = @name, @CName = @CatName, @UPrice = @Price, @VOL = @Volu
+		FETCH NEXT FROM CURSOR_SOMETHING INTO @id, @name, @Price, @CatName, @Volu
 	END
-
+	CLOSE CURSOR_SOMETHING
+	DEALLOCATE CURSOR_SOMETHING
 END
-	
 
+GO
 
 -- =============================================
