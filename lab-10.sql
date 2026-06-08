@@ -63,11 +63,26 @@ BEGIN
 			SET LastName = @LNAME, EmailAddress = @EADRS, Phone = @PHONE
 			WHERE CustomerID = @IDC
 		ELSE
-			DECLARE @MESSAGE nvarchar(100) = 'Parameter: ' + CAST(@IDC AS NVARCHAR(5)) + ' does not match an existing record within the table!'
+			DECLARE @MESSAGE nvarchar(100) = 'Parameter: ' + CAST(@IDC AS NVARCHAR(5)) + ' does not match an existing record within the table!';
+			THROW 50001, @MESSAGE, 1
 END
 -- =============================================
 -- =============================================
 -- Zadanie 4
+CREATE Table ProductInventory(
+	ProductID int not null,
+	Volume int
+
+	CONSTRAINT PID Foreign Key(ProductID) references SalesLT.Product(ProductID)
+)
+
+CREATE OR ALTER PROCEDURE dbo.AddNewProduct
+	@PName name,
+	@CName name,
+	@UPrice money,
+	@VOL int
+AS
+
 
 -- =============================================
 -- =============================================
