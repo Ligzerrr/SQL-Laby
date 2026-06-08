@@ -25,6 +25,16 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 2
+CREATE OR ALTER PROCEDURE dbo.GetCustomer
+	@FNAME Name,
+	@LName P4_surname,
+	@CID int,
+	@EmailAddress nvarchar(50)
+AS
+BEGIN 
+	SET NOCOUNT ON
+
+	SELECT
 
 -- =============================================
 -- =============================================
