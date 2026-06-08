@@ -27,20 +27,22 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 2
+-- Za pomocą NULL mozna stworzyc niewymagalne parametry
 CREATE OR ALTER PROCEDURE dbo.GetCustomer
-	@FNAME Name,
-	@LName P4_surname,
-	@CID int,
-	@EmailAddress nvarchar(50)
+	@FNAME Name = NULL,
+	@LName P4_surname = NULL,
+	@CID int = NULL,
+	@EmailAddress nvarchar(50) = NULL
 AS
 BEGIN 
 	SET NOCOUNT ON
 
 	SELECT FirstName, LastName, CustomerID, EmailAddress
 	FROM [240164].Customer
-	WHERE (@FNAME = FirstName OR @FNAME = Null) AND (@LNAME = LastName OR @LNAME = Null) AND
-	(@CID = CustomerID OR @CID = Null) AND (@EmailAddress = EmailAddress OR @EmailAddress = NULL)
+	WHERE (@FNAME = FirstName OR @FNAME IS Null) AND (@LNAME = LastName OR @LNAME IS Null) AND
+	(@CID = CustomerID OR @CID IS Null) AND (@EmailAddress = EmailAddress OR @EmailAddress IS NULL)
 END
+GO
 
 -- =============================================
 -- =============================================
