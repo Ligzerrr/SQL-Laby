@@ -84,4 +84,9 @@ UNPIVOT
 -- =============================================
 -- =============================================
 -- Zadanie 4
+--Nie mialem tutaj innego pomyslu oprocz uzycia ROLLUP
+SELECT BName, CAT, SUM(RVN) AS TOTAL_RVN
+FROM #ClothingSales
+GROUP BY ROLLUP (BName, CAT)
+
 -- =============================================
