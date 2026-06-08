@@ -8,7 +8,7 @@
 -- =============================================
 -- Zadanie 1
 GO
---Mały problem co do tego zadania.
+--Mały problem co do tego zadania. Nie rozumiem do czego ten TIP nawiazuje? Nie pamietam tworzenia wlasnych typow danych specyficznie pod SalesLT.Product i troche mnie to? zdziwilo?
 CREATE OR ALTER PROCEDURE dbo.UpdatePrices
 	@IDProd int,
 	@NEWLPrice decimal(10,2)
