@@ -47,7 +47,22 @@ GO
 -- =============================================
 -- =============================================
 -- Zadanie 3
+--Podobny poczatek do zad2, ale raczej najczesciej zmienane sa naziwska, emaile oraz numery telefonu.
+CREATE OR ALTER PROCEDURE dbo.UpdateCustomer
+	@IDC int,
+	@LNAME P4_surname,
+	@EADRS nvarchar(50),
+	@PHONE Phone
+AS
+BEGIN
+	SET NOCOUNT ON
+	SET XACT_ABORT ON
 
+	BEGIN TRY
+		
+		UPDATE SalesLT.Customer
+		SET LastName = @LNAME, EmailAddress = @EADRS, Phone
+		
 -- =============================================
 -- =============================================
 -- Zadanie 4
