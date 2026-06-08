@@ -69,7 +69,7 @@ END
 -- =============================================
 -- =============================================
 -- Zadanie 4
-CREATE Table ProductInventory(
+CREATE Table SalesLT.ProductInventory(
 	ProductID int not null,
 	Volume int
 
@@ -91,6 +91,9 @@ BEGIN
 	BEGIN TRY
 		BEGIN TRAN
 			INSERT INTO SalesLT.Product(Name, CategoryName, ListPrice)
+			VALUES (@PName, @CName, @UPrice)
+
+			INSERT INTO SalesLT.ProductInventory
 
 
 
