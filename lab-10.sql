@@ -118,7 +118,7 @@ Create Table #TopProducts (
 	Volume INT
 	)
 INSERT INTO #TopProducts
-SELECT TOP 15 ProductID, Name, ListPrice
+SELECT TOP 15 ProductID, Name, ListPrice, CategoryName, 50
 FROM SalesLT.Product
 WHERE ListPrice > 1.05 * StandardCost AND ListPrice < 1.20 * StandardCost
 
@@ -127,25 +127,27 @@ GO
 CREATE OR ALTER PROCEDURE dbo.UpdatePAfterD
 AS
 BEGIN
-	DECLARE @id int --Id do kursora
+	DECLARE @id int, @name nvarchar(50), @Price decimal(10,2), @CatName nvarchar(50), @Volu int--Id do kursora itd.
 	SET NOCOUNT ON
 	SET XACT_ABORT ON
 
 	DECLARE CURSOR_SOMETHING CURSOR FOR
-	SELECT ID
+	SELECT ID, Name, Price, CategoryName, Volume
 	FROM #TopProducts
-	ORDER BY ProductID
+	ORDER BY ID
 
 	OPEN CURSOR_SOMETHING
 
-	FETCH NEXT FROM CURSOR_SOMETHING INTO @id
+	FETCH NEXT FROM CURSOR_SOMETHING INTO @id, @name, @Price, @CatName, @Volu
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
 		IF EXISTS (SELECT ProductID FROM SalesLT.Product WHERE ProductID = @ID)
-			EXEC dbo.UpdatePrices @IDPROD = @ID
+			EXEC dbo.UpdatePrices @IDPROD = @ID, @NEWLPRICE = @Price
 		ELSE 
-			EXEC dbo.AddNewProduct (SELECT 
+			EXEC dbo.AddNewProduct @PName = @name, @CName = @CatName, @UPrice = @Price, @VOL = @Volu
+	END
 
+END
 	
 
 
